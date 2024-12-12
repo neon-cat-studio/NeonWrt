@@ -1,0 +1,36 @@
+--- a/src/mongo/crypto/crypto_openssl.cpp
++++ b/src/mongo/crypto/crypto_openssl.cpp
+49,51c49,58
+<     EVP_MD_CTX digestCtx;
+<     EVP_MD_CTX_init(&digestCtx);
+<     ON_BLOCK_EXIT(EVP_MD_CTX_cleanup, &digestCtx);
+---
+>     EVP_MD_CTX *digestCtx;
+> #if OPENSSL_VERSION_NUMBER < 0x10100000L
+>     digestCtx = (EVP_MD_CTX*) malloc(sizeof(EVP_MD_CTX));
+>     EVP_MD_CTX_init(digestCtx);
+>     ON_BLOCK_EXIT(free, digestCtx);
+>     ON_BLOCK_EXIT(EVP_MD_CTX_cleanup, digestCtx);
+> #else
+>     digestCtx = EVP_MD_CTX_new();
+>     ON_BLOCK_EXIT(EVP_MD_CTX_free, digestCtx);
+> #endif
+53c60
+<     if (1 != EVP_DigestInit_ex(&digestCtx, EVP_sha1(), NULL)) {
+---
+>     if (1 != EVP_DigestInit_ex(digestCtx, EVP_sha1(), NULL)) {
+57c64
+<     if (1 != EVP_DigestUpdate(&digestCtx, input, inputLen)) {
+---
+>     if (1 != EVP_DigestUpdate(digestCtx, input, inputLen)) {
+61c68
+<     return (1 == EVP_DigestFinal_ex(&digestCtx, output, NULL));
+---
+>     return (1 == EVP_DigestFinal_ex(digestCtx, output, NULL));
+
+--- a/src/mongo/util/net/ssl_manager.cpp
++++ b/src/mongo/util/net/ssl_manager.cpp
+704c704
+<     BIO* inBIO = BIO_new(BIO_s_file_internal());
+---
+>     BIO* inBIO = BIO_new(BIO_s_file());

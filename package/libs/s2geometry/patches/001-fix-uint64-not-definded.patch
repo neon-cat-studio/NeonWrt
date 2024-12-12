@@ -1,0 +1,49 @@
+--- a/src/s2/third_party/absl/base/internal/unaligned_access.h
++++ b/src/s2/third_party/absl/base/internal/unaligned_access.h
+83c83
+< inline uint64 UnalignedLoad64(const void *p) {
+---
+> inline uint64_t UnalignedLoad64(const void *p) {
+95c95
+< inline void UnalignedStore64(void *p, uint64 v) {
+---
+> inline void UnalignedStore64(void *p, uint64_t v) {
+133,134c133,134
+< inline uint64 UnalignedLoad64(const void *p) {
+<   uint64 t;
+---
+> inline uint64_t UnalignedLoad64(const void *p) {
+>   uint64_t t;
+143c143
+< inline void UnalignedStore64(void *p, uint64 v) { memcpy(p, &v, sizeof v); }
+---
+> inline void UnalignedStore64(void *p, uint64_t v) { memcpy(p, &v, sizeof v); }
+175c175
+<   (*reinterpret_cast<const uint64 *>(_p))
+---
+>   (*reinterpret_cast<const uint64_t *>(_p))
+182c182
+<   (*reinterpret_cast<uint64 *>(_p) = (_val))
+---
+>   (*reinterpret_cast<uint64_t *>(_p) = (_val))
+249,250c249,250
+< inline uint64 UnalignedLoad64(const void *p) {
+<   uint64 t;
+---
+> inline uint64_t UnalignedLoad64(const void *p) {
+>   uint64_t t;
+255c255
+< inline void UnalignedStore64(void *p, uint64 v) { memcpy(p, &v, sizeof v); }
+---
+> inline void UnalignedStore64(void *p, uint64_t v) { memcpy(p, &v, sizeof v); }
+289,290c289,290
+< inline uint64 UnalignedLoad64(const void *p) {
+<   uint64 t;
+---
+> inline uint64_t UnalignedLoad64(const void *p) {
+>   uint64_t t;
+299c299
+< inline void UnalignedStore64(void *p, uint64 v) { memcpy(p, &v, sizeof v); }
+---
+> inline void UnalignedStore64(void *p, uint64_t v) { memcpy(p, &v, sizeof v); }
+

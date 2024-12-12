@@ -1,0 +1,20 @@
+--- a/src/third_party/gperftools-2.2/src/stacktrace.cc
++++ b/src/third_party/gperftools-2.2/src/stacktrace.cc
+132a133,141
+> #if defined(__aarch64__)
+> #define STACKTRACE_INL_HEADER "stacktrace_arm-inl.h"
+> #define GST_SUFFIX aarch64
+> #include "stacktrace_impl_setup-inl.h"
+> #undef GST_SUFFIX
+> #undef STACKTRACE_INL_HEADER
+> #define HAVE_GST_aarch64
+> #endif
+> 
+165a175,177
+> #ifdef HAVE_GST_aarch64
+>   &impl__aarch64,
+> #endif
+197a210,211
+> #elif defined(HAVE_GST_aarch64)
+> static GetStackImplementation *get_stack_impl = &impl__aarch64;
+

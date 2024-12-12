@@ -1,0 +1,48 @@
+--- a/src/mongo/util/net/miniwebserver.cpp
++++ b/src/mongo/util/net/miniwebserver.cpp
+37a38
+> #include <string>
+45a47
+> using std::string;
+
+--- a/src/mongo/shell/bench.cpp
++++ b/src/mongo/shell/bench.cpp
+38a39
+> #include <string>
+82a84
+> using std::string;
+
+--- a/src/mongo/s/config.cpp
++++ b/src/mongo/s/config.cpp
+32a33,34
+> #include <string>
+> 
+69a72
+> using std::string;
+
+--- a/src/mongo/s/grid.cpp
++++ b/src/mongo/s/grid.cpp
+38a39
+> #include <string>
+66a68
+> using std::string;
+
+--- a/src/mongo/db/matcher/expression_leaf.cpp
++++ b/src/mongo/db/matcher/expression_leaf.cpp
+32a33
+> #include <string>
+42a44,45
+> 
+> using std::string;
+
+--- a/src/mongo/db/dbwebserver.cpp
++++ b/src/mongo/db/dbwebserver.cpp
+38a39
+> #include <string>
+64a66
+> using std::string;
+
+--- a/src/mongo/db/repl/master_slave.cpp
++++ b/src/mongo/db/repl/master_slave.cpp
+79a80
+> using std::string;

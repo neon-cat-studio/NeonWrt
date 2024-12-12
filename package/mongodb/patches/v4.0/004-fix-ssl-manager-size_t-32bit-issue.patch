@@ -1,0 +1,6 @@
+--- a/src/mongo/util/net/ssl_manager.cpp
++++ b/src/mongo/util/net/ssl_manager.cpp
+475c475
+< StatusWith<DERToken> DERToken::parse(ConstDataRange cdr, size_t* outLength) {
+---
+> StatusWith<DERToken> DERToken::parse(ConstDataRange cdr, uint64_t* outLength) {

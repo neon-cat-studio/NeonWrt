@@ -1,0 +1,11 @@
+--- a/src/mongo/db/log_process_details.cpp
++++ b/src/mongo/db/log_process_details.cpp
+32a33,34
+> #include <iostream>
+> 
+
+--- a/src/mongo/s/mongos_options_init.cpp
++++ b/src/mongo/s/mongos_options_init.cpp
+28a29,30
+> #include <iostream>
+> 

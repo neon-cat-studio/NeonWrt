@@ -1,0 +1,27 @@
+--- a/src/mongo/db/repl/is_master_response.cpp
++++ b/src/mongo/db/repl/is_master_response.cpp
+154c154
+<         builder->append(kSlaveDelayFieldName, _slaveDelay.total_seconds());
+---
+>         builder->append(kSlaveDelayFieldName, static_cast<long long>(_slaveDelay.total_seconds()));
+
+--- a/src/mongo/db/repl/member_config.cpp
++++ b/src/mongo/db/repl/member_config.cpp
+300c300
+<     configBuilder.append("slaveDelay", _slaveDelay.total_seconds());
+---
+>     configBuilder.append("slaveDelay", static_cast<long long>(_slaveDelay.total_seconds()));
+
+--- a/src/mongo/db/repl/repl_set_heartbeat_response.cpp
++++ b/src/mongo/db/repl/repl_set_heartbeat_response.cpp
+95c95
+<         *builder << kTimeFieldName << _time.total_seconds();
+---
+>         *builder << kTimeFieldName << static_cast<long long>(_time.total_seconds());
+
+--- a/src/mongo/db/repl/replica_set_config.cpp
++++ b/src/mongo/db/repl/replica_set_config.cpp
+493c493
+<     settingsBuilder.append("heartbeatTimeoutSecs", _heartbeatTimeoutPeriod.total_seconds());
+---
+>     settingsBuilder.append("heartbeatTimeoutSecs", static_cast<long long>(_heartbeatTimeoutPeriod.total_seconds()));

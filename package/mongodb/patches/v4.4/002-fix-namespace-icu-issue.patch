@@ -1,0 +1,51 @@
+--- a/src/mongo/db/query/collation/collator_interface_icu.h
++++ b/src/mongo/db/query/collation/collator_interface_icu.h
+36,39d35
+< namespace icu {
+< class Collator;
+< }  // namespace icu
+< 
+
+--- a/src/mongo/db/query/collation/collator_interface_icu.cpp
++++ b/src/mongo/db/query/collation/collator_interface_icu.cpp
+31a32,35
+> #include <unicode/coll.h>
+> #include <unicode/sortkey.h>
+> #include <unicode/tblcoll.h>
+> 
+35,37d38
+< 
+< #include <unicode/coll.h>
+< #include <unicode/sortkey.h>
+
+--- a/src/mongo/db/query/collation/collator_interface_icu_test.cpp
++++ b/src/mongo/db/query/collation/collator_interface_icu_test.cpp
+30,33d29
+< #include "mongo/platform/basic.h"
+< 
+< #include "mongo/db/query/collation/collator_interface_icu.h"
+< 
+36a33,37
+> #include <unicode/tblcoll.h>
+> 
+> #include "mongo/platform/basic.h"
+> 
+> #include "mongo/db/query/collation/collator_interface_icu.h"
+
+--- a/src/mongo/db/query/collation/collator_factory_icu.cpp
++++ b/src/mongo/db/query/collation/collator_factory_icu.cpp
+32,35d31
+< #include "mongo/platform/basic.h"
+< 
+< #include "mongo/db/query/collation/collator_factory_icu.h"
+< 
+39a36,41
+> #include <unicode/tblcoll.h>
+> 
+> #include "mongo/platform/basic.h"
+> 
+> #include "mongo/db/query/collation/collator_factory_icu.h"
+> #include "mongo/db/query/collation/collator_interface_icu.h"
+43d44
+< #include "mongo/db/query/collation/collator_interface_icu.h"
+
