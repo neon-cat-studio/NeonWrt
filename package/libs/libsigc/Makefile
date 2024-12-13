@@ -22,14 +22,14 @@ PKG_FIXUP:=meson
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
 
-define Package/libsigc++
+define Package/libsigc
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=libsigc++ - A callback framework for C++
   URL:=https://libsigc.sourceforge.io/
 endef
 
-define Package/libsigc++/description
+define Package/libsigc/description
   libsigc++ is a C++ library for typesafe callbacks and signals. It is
   the cornerstone for other libraries like gtkmm or other GObject-based
   C++ bindings.
@@ -51,9 +51,9 @@ define Build/InstallDev
 	$(CP) $(PKG_BUILD_DIR)/libsigc++-3.0.pc $(1)/usr/lib/pkgconfig/
 endef
 
-define Package/libsigc++/install
+define Package/libsigc/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_BUILD_DIR)/libsigc++-3.0.so* $(1)/usr/lib/
 endef
 
-$(eval $(call BuildPackage,libsigc++))
+$(eval $(call BuildPackage,libsigc))
