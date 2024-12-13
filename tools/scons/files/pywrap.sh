@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 
+# Determine the script name or default argument
 case "${0##*/}" in
-	pywrap.sh) arg1="";;
-	*) arg1="$0.py" ;;
+    pywrap.sh) arg1="";;
+    *) arg1="$0.py" ;;
 esac
 
-for bin in python python2 python2.7 python2.6 python2.5 python2.4; do
-    case "$($bin -V 2>&1)" in
-        "Python 2"*) exec $bin $arg1 "$@" ;;
+# Search for a Python 3 interpreter
+for bin in python3 python; do
+    case "$($bin --version 2>&1)" in
+        "Python 3"*) exec $bin $arg1 "$@" ;;
     esac
 done
 
-echo "Unable to find a Python 2.x interpreter for executing ${arg1:+$arg1 }$@ !" >&2
+# If no Python 3 interpreter is found, output an error
+echo "Unable to find a Python 3.x interpreter for executing ${arg1:+$arg1 }$@ !" >&2
 exit 1
