@@ -36,6 +36,7 @@ define Host/Install
 		mv "$$$$bin" "$$$$bin.py";                \
 		cp ./files/pywrap.sh "$$$$bin";           \
 	done
+
 endef
 
 $(eval $(call HostBuild))
