@@ -30,13 +30,10 @@ define Host/Install
 	# 使用 Python 3 執行 SCons 的安裝腳本
 	$(PYTHON3) $(HOST_BUILD_DIR)/setup.py install --prefix=$(STAGING_DIR_HOST)
 
-	# 清理多餘的腳本，重新包裝為可執行的 scons
-	rm -f $(STAGING_DIR_HOST)/bin/scons*.py
-	for bin in $(STAGING_DIR_HOST)/bin/scons*; do \
-		mv "$$$$bin" "$$$$bin.py";                \
-		cp ./files/pywrap.sh "$$$$bin";           \
-	done
-
+	# 包裝為可執行腳本，使用 pywrap.sh
+	$(INSTALL_BIN) ./files/pywrap.sh $(STAGING_DIR_HOST)/bin/scons
+	mv $(STAGING_DIR_HOST)/bin/scons $(STAGING_DIR_HOST)/bin/scons.py
+	chmod +x $(STAGING_DIR_HOST)/bin/scons
 endef
 
 $(eval $(call HostBuild))
