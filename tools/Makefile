@@ -64,6 +64,7 @@ tools-y += patchelf
 tools-y += pkgconf
 tools-y += quilt
 tools-y += squashfs4
+tools-y += scons
 tools-y += sstrip
 tools-y += zip
 tools-y += zlib
