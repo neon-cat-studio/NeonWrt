@@ -1,5 +1,8 @@
 include $(TOPDIR)/rules.mk
 
+MESON=tools/meson/meson
+NINJA=tools/ninja/ninja
+
 PKG_NAME:=networkmanager
 PKG_RELEASE:=1
 
