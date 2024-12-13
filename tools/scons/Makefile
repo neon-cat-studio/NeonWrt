@@ -27,13 +27,9 @@ define Host/Compile
 endef
 
 define Host/Install
-	# 使用 Python 3 執行 SCons 的安裝腳本
-	$(PYTHON3) $(HOST_BUILD_DIR)/setup.py install --prefix=$(STAGING_DIR_HOST)
-
-	# 包裝 SCons 為可執行腳本
-	$(INSTALL_BIN) ./files/pywrap.sh $(STAGING_DIR_HOST)/bin/scons
-	mv $(STAGING_DIR_HOST)/bin/scons $(STAGING_DIR_HOST)/bin/scons.py
-	ln -sf $(STAGING_DIR_HOST)/bin/scons.py $(STAGING_DIR_HOST)/bin/scons
+    $(PYTHON3) setup.py install --prefix=$(STAGING_DIR_HOST)
+    $(INSTALL_BIN) ./files/pywrap.sh $(STAGING_DIR_HOST)/bin/scons
+    ln -sf $(STAGING_DIR_HOST)/bin/scons $(STAGING_DIR_HOST)/bin/scons.py
 endef
 
 $(eval $(call HostBuild))
