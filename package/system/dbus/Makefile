@@ -29,7 +29,7 @@ define Package/dbus
   CATEGORY:=Libraries
   TITLE:=D-Bus message bus system
   URL:=https://www.freedesktop.org/wiki/Software/dbus/
-  DEPENDS:=+libexpat +systemd?
+  DEPENDS:=+libexpat +systemd
 endef
 
 define Package/dbus/description

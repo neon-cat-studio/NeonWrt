@@ -28,7 +28,7 @@ define Package/dbus-cpp
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=C++ API for D-Bus message bus
-  DEPENDS:=+dbus +libexpat +libglib2? +efl?
+  DEPENDS:=+dbus +libexpat +libglib2 +efl
   URL:=https://sourceforge.net/projects/dbus-cplusplus/
 endef
 

@@ -28,7 +28,7 @@ define Package/dbus-cxx
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=C++ wrapper for D-Bus
-  DEPENDS:=+libsigc +libglib2? +qt5base?
+  DEPENDS:=+libsigc +libglib2 +qt5base
   URL:=https://github.com/dbus-cxx/dbus-cxx
 endef
 
