@@ -8,13 +8,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mDNSResponder
-PKG_VERSION:=544
-PKG_RELEASE:=4
+PKG_VERSION:=IETF104
+PKG_RELEASE:=5
 
 PKG_SOURCE:=mDNSResponder-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://opensource.apple.com/tarballs/mDNSResponder/
-PKG_MD5SUM:=39142ab70bd82a096801ce346f86cbab
-PKG_MAINTAINER:=Steven Barth <cyrus@openwrt.org>
+PKG_SOURCE_URL:=https://opensource.apple.com/tarballs/mDNSResponder/IETF/
+PKG_HASH:=b3a76fd35cf2d561546c2fbeaea1e5998b7e04b8330afb918ea5fbdeb202162c
+PKG_MAINTAINER:=
+PKG_LICENSE:=Apache-2.0
+PKG_CPE_ID:=cpe:/a:apple:mdnsresponder
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/mDNSResponder-$(PKG_VERSION)
 
@@ -84,7 +86,8 @@ endef
 # I have no idea why -lc is required, but without it, C library symbols are
 # not found:
 MAKE_FLAGS += \
-	CFLAGS_DEBUG="$(TARGET_CFLAGS)" \
+	LD="$(TARGET_CC)"  \
+	CFLAGS_DEBUG="$(TARGET_CFLAGS) $(TARGET_CPPFLAGS)" \
 	LINKOPTS=-lc \
 	LDCONFIG= \
 	ETCBASE="$(PKG_INSTALL_DIR)/etc" \
@@ -119,13 +122,10 @@ endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
-	$(CP) $(PKG_BUILD_DIR)/mDNSShared/dns_sd.h $(1)/usr/include/
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/dns_sd.h $(1)/usr/include/
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_BUILD_DIR)/mDNSPosix/build/prod/*.so* $(1)/usr/lib/
-endef
-
-define Package/mdns-utils/conffile
-  /etc/init.d/mDNSResponder
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libdns_sd.so.1 $(1)/usr/lib/
+	$(LN) -s libdns_sd.so.1 $(1)/usr/lib/libdns_sd.so
 endef
 
 define Package/mdns-utils/install

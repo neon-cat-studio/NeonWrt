@@ -1,5 +1,5 @@
 # 
-# Copyright (C) 2007-2010 OpenWrt.org
+# Copyright (C) 2007-2014 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,14 +9,18 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=liboil
 PKG_VERSION:=0.3.17
-PKG_RELEASE:=1
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://liboil.freedesktop.org/download/
-PKG_MD5SUM:=47dc734f82faeb2964d97771cfd2e701
+PKG_HASH:=105f02079b0b50034c759db34b473ecb5704ffa20a5486b60a8b7698128bfc69
+
+PKG_LICENSE:=FREE
+PKG_LICENSE_FILES:=COPYING
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
+PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -39,10 +43,10 @@ define Package/liboil/description
 endef
 
 CONFIGURE_ARGS += \
+	--with-pic \
 	--enable-shared \
 	--enable-static \
-
-TARGET_CFLAGS += $(FPIC)
+	--disable-glib
 
 # XXX: VFP_CFLAGS is set to '-mfpu=vfp' on arm by configure, but that breaks 
 # final linking stages, so override it until we find why

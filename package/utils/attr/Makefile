@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 OpenWrt.org
+# Copyright (C) 2014-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,18 +8,19 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=attr
-PKG_REV:=50fc862d69984089ce09138b3350ee7762290403
-PKG_VERSION:=20140610
+PKG_VERSION:=2.5.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=git://git.sv.gnu.org/attr.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_URL:=http://git.savannah.nongnu.org/cgit/attr.git/snapshot
+PKG_HASH:=69991b2fc5fe7917d996b05d5d4fe3c44d074c9d806dd263b14a42fab57bfc2f
+
 PKG_MAINTAINER:=Maxim Storchak <m.storchak@gmail.com>
+PKG_CPE_ID:=cpe:/a:attr_project:attr
+
+PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
+PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -38,6 +39,8 @@ $(call Package/attr/Default)
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE+=utils
+  LICENSE:=GPL-2.0-or-later
+  LICENSE_FILES:=doc/COPYING
   DEPENDS:=+libattr
 endef
 
@@ -46,14 +49,8 @@ $(call Package/attr/Default)
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE+=library
-  KCONFIG:= \
-    CONFIG_CIFS_XATTR=y \
-    CONFIG_EXT4_FS_XATTR=y \
-    CONFIG_JFFS2_FS_XATTR=y \
-    CONFIG_REISERFS_FS_XATTR=y \
-    CONFIG_SQUASHFS_XATTR=y \
-    CONFIG_TMPFS_XATTR=y \
-
+  LICENSE:=LGPL-2.1-or-later
+  LICENSE_FILES:=doc/COPYING.LGPL
 endef
 
 define Package/libattr/description
@@ -70,11 +67,6 @@ $(call Package/attr/Default/description)
 endef
 
 CONFIGURE_ARGS += --enable-static --enable-shared
-
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	(cd $(PKG_BUILD_DIR); ./autogen.sh;);
-endef
 
 define Package/attr/install
 	$(INSTALL_DIR) $(1)/usr/bin
@@ -93,9 +85,9 @@ define Package/attr/conffiles
 endef
 
 define Build/InstallDev
-	mkdir -p $(1)/usr/include
-	mkdir -p $(1)/usr/lib/pkgconfig
-	$(CP) -r $(PKG_INSTALL_DIR)/usr/{include,lib} $(1)/usr/
+	$(INSTALL_DIR) $(1)/usr/include
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(CP) $(PKG_INSTALL_DIR)/usr/{include,lib} $(1)/usr/
 endef
 
 $(eval $(call BuildPackage,attr))

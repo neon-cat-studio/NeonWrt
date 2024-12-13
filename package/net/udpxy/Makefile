@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2006-2014 OpenWrt.org
+# Copyright (C) 2006-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,28 +8,29 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=udpxy
-PKG_REV:=1.0.23
-PKG_TAG:=9
-PKG_VERSION:=$(PKG_REV)-$(PKG_TAG)
-PKG_RELEASE:=4
+PKG_VERSION:=1.0-25.1
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME).$(PKG_REV)-$(patsubst %,%-prod,$(PKG_TAG)).tar.gz
-PKG_SOURCE_URL:=http://www.udpxy.com/download/1_23
-PKG_MD5SUM:=0c953f7dd80329c1a062997afb9b6744
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/pcherenkov/udpxy/tar.gz/$(PKG_VERSION)?
+PKG_HASH:=a1a16e60895c6b2fd151321db47f5d5373843116f1b98ed9749e6c25a6c44497
+
 PKG_MAINTAINER:=Álvaro Fernández Rojas <noltari@gmail.com>
-
-PKG_LICENSE:=GPL-3.0
-PKG_LICENSE_FILES:=gpl.txt
+PKG_LICENSE:=GPL-3.0-or-later
+PKG_LICENSE_FILES:=chipmunk/gpl.txt
 
 PKG_INSTALL:=1
+PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
+
+MAKE_PATH:=chipmunk
 
 define Package/udpxy
   SECTION:=net
   CATEGORY:=Network
   TITLE:=Convert UDP IPTV streams into HTTP streams
-  URL:=http://www.udpxy.com/index-en.html
+  URL:=https://github.com/pcherenkov/udpxy
 endef
 
 define Package/udpxy/description

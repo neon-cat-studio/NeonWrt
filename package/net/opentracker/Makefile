@@ -1,6 +1,3 @@
-#
-# Copyright (C) 2006-2014 OpenWrt.org
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -8,18 +5,18 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=opentracker
-PKG_VERSION:=20130804
 PKG_RELEASE:=1
-PKG_REV:=954f5029dfa17734dc408336ef710c192268e8a4
-PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=git://erdgeist.org/opentracker
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=$(PKG_REV)
 PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://erdgeist.org/gitweb/opentracker
+PKG_SOURCE_DATE:=2021-08-23
+PKG_SOURCE_VERSION:=110868ec4ebe60521d5a4ced63feca6a1cf0aa2a
+PKG_MIRROR_HASH:=02db684fa9b28952df4aa8de2a1d20ca840695b51103f0b6eb716a4ca370c5d7
+
+PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
+PKG_LICENSE:=Beerware
+
 PKG_BUILD_DEPENDS:=libowfat
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -74,6 +71,14 @@ MAKE_FLAGS += PREFIX="$(STAGING_DIR)/usr"
 ifeq ($(BUILD_VARIANT),ipv6)
   MAKE_FLAGS += FEATURES="-DWANT_V6"
 endif
+
+define Package/opentracker/conffiles
+/etc/opentracker.conf
+endef
+
+define Package/opentracker6/conffiles
+/etc/opentracker6.conf
+endef
 
 define Package/opentracker/install
 	$(INSTALL_DIR) $(1)/usr/bin

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2006-2014 OpenWrt.org
+# Copyright (C) 2006-2015 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,27 +8,55 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mtr
-PKG_VERSION:=0.85
-PKG_RELEASE:=1
+PKG_VERSION:=0.95
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=ftp://ftp.bitwizard.nl/mtr
-PKG_MD5SUM:=5e665c617e5659b6ec3e201ee7488eb1
+PKG_SOURCE_URL:=https://codeload.github.com/traviscross/mtr/tar.gz/v$(PKG_VERSION)?
+PKG_HASH:=12490fb660ba5fb34df8c06a0f62b4f9cbd11a584fc3f6eceda0a99124e8596f
+
+PKG_MAINTAINER:=Jonathan McCrohan <jmccrohan@gmail.com>
+PKG_LICENSE:=GPL-2.0-or-later
+PKG_LICENSE_FILES:=COPYING
+PKG_CPE_ID:=cpe:/a:matt_kimball_and_roger_wolff:mtr
 
 PKG_INSTALL:=1
-
+PKG_BUILD_PARALLEL:=1
 PKG_FIXUP:=autoreconf
+PKG_BUILD_FLAGS:=gc-sections
+
+CONFIGURE_ARGS += \
+	--without-gtk \
+	$(call autoconf_bool,CONFIG_IPV6,ipv6)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/mtr
-  SECTION:=net
-  CATEGORY:=Network
-  DEPENDS:=+libncurses
-  TITLE:=Full screen ncurses traceroute tool
-  URL:=http://www.bitwizard.nl/mtr/
-  MAINTAINER:=Jonathan McCrohan <jmccrohan@gmail.com>
+define Package/mtr/Default
+	SECTION:=net
+	CATEGORY:=Network
+	DEPENDS:=+libncurses
+	TITLE:=Full screen ncurses traceroute tool
+	URL:=https://www.bitwizard.nl/mtr/
+	PROVIDES:=mtr
 endef
+
+define Package/mtr-nojson
+	$(Package/mtr/Default)
+	TITLE+= Without JSON
+	VARIANT:=nojson
+	DEFAULT_VARIANT:=1
+endef
+
+define Package/mtr-json
+	$(Package/mtr/Default)
+	TITLE+= With JSON
+	VARIANT:=json
+	DEPENDS+=+jansson
+endef
+
+ifeq ($(BUILD_VARIANT),nojson)
+	CONFIGURE_ARGS += --without-jansson
+endif
 
 define Package/mtr/description
 	mtr combines the functionality of the 'traceroute' and 'ping' programs
@@ -41,26 +69,18 @@ define Package/mtr/description
 	running statistics about each machine.
 endef
 
-CONFIGURE_ARGS += \
-	--without-gtk \
-	--without-glib \
+TARGET_LDFLAGS += -Wl,--as-needed
 
-define Build/Configure
-	(cd $(PKG_BUILD_DIR); touch \
-		configure.in \
-		aclocal.m4 \
-		Makefile.in \
-		img/Makefile.in \
-		stamp-h.in \
-		config.h.in \
-		configure \
-	);
-	$(call Build/Configure/Default)
-endef
+CONFIGURE_VARS += ac_cv_lib_cap_cap_set_proc=no
 
-define Package/mtr/install
+define Package/mtr/install/Default
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/mtr $(1)/usr/sbin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/mtr-packet $(1)/usr/sbin/
 endef
 
-$(eval $(call BuildPackage,mtr))
+Package/mtr-nojson/install = $(Package/mtr/install/Default)
+Package/mtr-json/install = $(Package/mtr/install/Default)
+
+$(eval $(call BuildPackage,mtr-nojson))
+$(eval $(call BuildPackage,mtr-json))

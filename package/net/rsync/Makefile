@@ -8,26 +8,31 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rsync
-PKG_VERSION:=3.1.1
+PKG_VERSION:=3.2.7
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://rsync.samba.org/ftp/rsync/src
-PKG_MD5SUM:=43bd6676f0b404326eee2d63be3cdcfe
+PKG_SOURCE_URL:=https://download.samba.org/pub/$(PKG_NAME)/src
+PKG_HASH:=4e7d9d3f6ed10878c58c5fb724a67dacf4b6aac7340b13e488fb2dc41346f2bb
+
 PKG_MAINTAINER:=Maxim Storchak <m.storchak@gmail.com>
+PKG_LICENSE:=GPL-3.0-or-later
+PKG_LICENSE_FILES:=COPYING
+PKG_CPE_ID:=cpe:/a:rsync:rsync
 
 PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/nls.mk
 
 define Package/rsync
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=File Transfer
   TITLE:=Fast remote file copy program (like rcp)
-  DEPENDS:=+libpopt +zlib +RSYNC_xattr:libattr +RSYNC_acl:libacl
-  URL:=http://rsync.samba.org/
+  DEPENDS:=+libpopt +zlib +RSYNC_xattr:libattr +RSYNC_acl:libacl +RSYNC_zstd:libzstd $(ICONV_DEPENDS)
+  URL:=https://rsync.samba.org/
   MENU:=1
 endef
 
@@ -35,17 +40,26 @@ define Package/rsync/config
 	source "$(SOURCE)/Config.in"
 endef
 
-ifeq ($(CONFIG_RSYNC_xattr),y)
-	CONFIGURE_ARGS+= --enable-xattr-support
-else
-	CONFIGURE_ARGS+= --disable-xattr-support
-endif
+TARGET_CFLAGS += $(if $(CONFIG_IPV6),-DINET6,)
 
-ifeq ($(CONFIG_RSYNC_acl),y)
-	CONFIGURE_ARGS+= --enable-acl-support
-else
-	CONFIGURE_ARGS+= --disable-acl-support
-endif
+CONFIGURE_ARGS += \
+	--without-included-popt \
+	--without-included-zlib \
+	--disable-debug \
+	--disable-asm \
+	--disable-lz4 \
+	--disable-locale \
+	--disable-md2man \
+	--disable-openssl \
+	--disable-simd \
+	--disable-roll-simd \
+	--disable-xxhash \
+	--$(if $(CONFIG_BUILD_NLS),en,dis)able-iconv \
+	--$(if $(CONFIG_BUILD_NLS),en,dis)able-iconv-open \
+	--$(if $(CONFIG_RSYNC_zstd),en,dis)able-zstd \
+	--$(if $(CONFIG_RSYNC_xattr),en,dis)able-xattr-support \
+	--$(if $(CONFIG_RSYNC_acl),en,dis)able-acl-support \
+	$(if $(CONFIG_IPV6),,--disable-ipv6)
 
 define Package/rsyncd
   SECTION:=net
@@ -53,7 +67,16 @@ define Package/rsyncd
   SUBMENU:=File Transfer
   TITLE:=Rsync daemon
   DEPENDS:=+rsync
-  URL:=http://rsync.samba.org/
+  URL:=https://rsync.samba.org/
+endef
+
+define Package/rrsync
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=File Transfer
+  TITLE:=Restricted rsync script
+  DEPENDS:=+rsync +perlbase-file +perl @(PACKAGE_openssh-server||PACKAGE_openssh-server-pam)
+  URL:=https://www.samba.org/ftp/unpacked/rsync/support/rrsync
 endef
 
 define Package/rsync/description
@@ -65,12 +88,6 @@ define Package/rsync/description
  The rsync remote-update protocol allows rsync to transfer just the differences
  between two sets of files across the network link.
 endef
-
-CONFIGURE_ARGS += \
-	--with-included-popt=no \
-	--with-included-zlib=no \
-	--disable-debug \
-	--disable-locale \
 
 define Package/rsync/install
 	$(INSTALL_DIR) $(1)/usr/bin
@@ -93,5 +110,17 @@ define Package/rsyncd/install
 	$(INSTALL_BIN) ./files/rsyncd.init $(1)/etc/init.d/rsyncd
 endef
 
+define Package/rrsync/description
+  rrsync is a script which wraps around rsync to restrict its permission to a
+  particular subdirectory via ~/.ssh/authorized_keys and/or to read-only
+  or write-only mode
+endef
+
+define Package/rrsync/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/support/rrsync $(1)/usr/bin
+endef
+
 $(eval $(call BuildPackage,rsync))
 $(eval $(call BuildPackage,rsyncd))
+$(eval $(call BuildPackage,rrsync))

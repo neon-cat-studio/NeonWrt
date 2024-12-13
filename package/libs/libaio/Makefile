@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2007-2010 OpenWrt.org
+# Copyright (C) 2007-2014 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,15 +8,21 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libaio
-PKG_VERSION:=0.3.109
-PKG_RELEASE:=1
+PKG_VERSION:=0.3.113
+PKG_RELEASE:=2
 
-PKG_SOURCE:=$(PKG_NAME)_$(PKG_VERSION).orig.tar.gz
-PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/liba/libaio/
-PKG_MD5SUM:=435a5b16ca6198eaf01155263d855756
-PKG_MAINTAINER:=Steven Barth <cyrus@openwrt.org>
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://releases.pagure.org/libaio
+PKG_HASH:=2c44d1c5fd0d43752287c9ae1eb9c023f04ef848ea8d4aafa46e9aedb678200b
 
-PKG_USE_MIPS16:=0
+PKG_MAINTAINER:=
+PKG_LICENSE:=LGPL-2.1-only
+PKG_LICENSE_FILES:=COPYING
+PKG_CPE_ID:=cpe:/a:libaio_project:libaio
+
+PKG_BUILD_PARALLEL:=1
+PKG_BUILD_FLAGS:=no-mips16
+PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -25,26 +31,6 @@ define Package/libaio
   CATEGORY:=Libraries
   TITLE:=Linux kernel AIO interface access library
   URL:=http://lse.sourceforge.net/io/aio.html
-endef
-
-define Build/Configure
-endef
-
-LIBAIO_CFLAGS:=-nostdlib -nostartfiles -I. $(TARGET_CFLAGS) $(TARGET_CPPFLAGS) $(FPIC)
-
-TARGET_CFLAGS += $(FPIC)
-
-define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) \
-		$(TARGET_CONFIGURE_OPTS) \
-		ARCH="$(ARCH)" \
-		CC="$(TARGET_CROSS)gcc" \
-		LD="$(TARGET_CROSS)ld" \
-		CFLAGS="$(LIBAIO_CFLAGS)" \
-		all
-	$(MAKE) -C $(PKG_BUILD_DIR) \
-		prefix="$(PKG_INSTALL_DIR)/usr" \
-		install
 endef
 
 define Build/InstallDev

@@ -1,7 +1,5 @@
-Index: opentracker-20130804/Makefile
-===================================================================
---- opentracker-20130804.orig/Makefile
-+++ opentracker-20130804/Makefile
+--- a/Makefile
++++ b/Makefile
 @@ -9,13 +9,13 @@ CC?=gcc
  
  # BSD flavour
@@ -20,13 +18,4 @@ Index: opentracker-20130804/Makefile
 +# LIBOWFAT_LIBRARY=$(PREFIX)/libowfat
  
  BINDIR?=$(PREFIX)/bin
- 
-@@ -66,7 +66,7 @@ CFLAGS_debug = $(CFLAGS) $(OPTS_debug) $
- 
- $(BINARY): $(OBJECTS) $(HEADERS)
- 	$(CC) -o $@ $(OBJECTS) $(LDFLAGS)
--	strip $@
-+	$(STRIP) $@
- $(BINARY).debug: $(OBJECTS_debug) $(HEADERS)
- 	$(CC) -o $@ $(OBJECTS_debug) $(LDFLAGS)
- proxy: $(OBJECTS_proxy) $(HEADERS)
+ STRIP?=strip

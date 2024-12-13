@@ -1,24 +1,24 @@
-#
-# Copyright (C) 2010-2014 OpenWrt.org
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
 
 include $(TOPDIR)/rules.mk
 
-LOWFAT_VERSION=0.28
-
 PKG_NAME:=libowfat
-PKG_VERSION:=$(LOWFAT_VERSION)
-PKG_RELEASE:=2
+PKG_VERSION:=0.33
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=http://dl.fefe.de
-PKG_MD5SUM:=6bbee9a86506419657d87123b7a6f2c1
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE_URL:=https://www.fefe.de/libowfat
+PKG_HASH:=311ec8b3f4b72bb442e323fb013a98f956fa745547f2bc9456287b20d027cd7d
 PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
+PKG_LICENSE:=GPL-2.0
+PKG_LICENSE_FILES:=COPYING
+
+PKG_BUILD_DEPENDS += libowfat/host
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
 
 # set to 1 to enable debugging
 DEBUG=
@@ -27,7 +27,8 @@ define Package/libowfat
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=reimplemented libdjb under GPL
-  URL:=http://www.fefe.de/libowfat/
+  URL:=https://www.fefe.de/libowfat/
+  BUILDONLY:=1
 endef
 
 define Build/Configure
@@ -35,18 +36,32 @@ endef
 
 TARGET_CFLAGS += $(FPIC)
 LOWFAT_MAKEOPTS = $(TARGET_CONFIGURE_OPTS) \
+	AR="ar" \
 	CFLAGS="$(TARGET_CFLAGS) -I$(PKG_BUILD_DIR) -I$(STAGING_DIR)/usr/include" \
+	CCC="$(TARGET_CC)" \
+	CROSS="$(TARGET_CROSS)" \
 	DEBUG="$(DEBUG)" \
-	VERSION="$(LOWFAT_VERSION)" \
+	VERSION="$(PKG_VERSION)" \
 	OS="Linux"
 
-# work around a nasty gcc bug
-ifneq ($(CONFIG_GCC_VERSION_4_2_4),)
-  LOWFAT_MAKEOPTS += WOPTS=""
-endif
+LOWFAT_HOST_MAKEOPTS = $(HOST_CONFIGURE_OPTS) \
+	CFLAGS="$(HOST_CFLAGS) -I$(HOST_BUILD_DIR) -I$(STAGING_DIR_HOSTPKG)/include" \
+	DEBUG="$(DEBUG)" \
+	VERSION="$(PKG_VERSION)" \
+	OS="Linux"
 
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR) $(LOWFAT_MAKEOPTS)
+endef
+
+define Host/Compile
+	$(LN) . $(HOST_BUILD_DIR)/libowfat
+	$(MAKE) -C $(HOST_BUILD_DIR) $(LOWFAT_HOST_MAKEOPTS) ent
+endef
+
+define Host/Install
+	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/bin
+	$(CP) $(HOST_BUILD_DIR)/ent $(STAGING_DIR_HOSTPKG)/bin/libowfat-ent
 endef
 
 define Build/InstallDev
@@ -56,4 +71,5 @@ define Build/InstallDev
 	$(CP) $(PKG_BUILD_DIR)/*.a $(1)/usr/lib
 endef
 
+$(eval $(call HostBuild))
 $(eval $(call BuildPackage,libowfat))

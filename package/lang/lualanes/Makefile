@@ -8,51 +8,50 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lualanes
-PKG_REV:=aa9bfcf2dd49f55f11b27e7c21d5b75d81ccfc7e
-PKG_VERSION:=3.9.4
-PKG_RELEASE=1
+PKG_VERSION:=3.16.3
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.gz
-PKG_SOURCE_URL:=https://github.com/LuaLanes/lanes.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/LuaLanes/lanes/tar.gz/v$(PKG_VERSION)?
+PKG_HASH:=22cfa836de4be14fe588b9cd34e936d6f61ec6f4096d8ae30d4ec35855d9608f
+PKG_BUILD_DIR:=$(BUILD_DIR)/lanes-$(PKG_VERSION)
 
-PKG_INSTALL:=1
-PKG_BUILD_PARALLEL:=1
+PKG_MAINTAINER:=Vladimir Malyutin <first-leon@yandex.ru>
+PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE_FILES:=COPYRIGHT
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_SOURCE_SUBDIR)
-PKG_BUILD_DEPENDS:=lua/host luac/host
+PKG_BUILD_DEPENDS:=lua/host
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
 
 define Package/lualanes
 	SUBMENU:=Lua
 	SECTION:=lang
 	CATEGORY:=Languages
 	TITLE:=LuaLanes
-	URL:=http://luaforge.net/projects/lanes/
+	URL:=http://lualanes.github.io/lanes/
 	DEPENDS:=+lua +luac +liblua +libpthread
-	MAINTAINER:=Vladimir Malyutin <first-leon@yandex.ru>
 endef
 
 define Package/lualanes/description
-	Lanes is a lightweight, native, lazy evaluating multithreading library for Lua 5.1 and 5.2.
-endef
+Lua Lanes is a Lua extension library providing the possibility to run
+multiple Lua states in parallel. It is intended to be used for optimizing
+performance on multicore CPU's and to study ways to make Lua programs
+naturally parallel to begin with.
 
-define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) all \
-        CC="$(TARGET_CC)" \
-        LUA="$(STAGING_DIR_HOST)/bin/lua" \
-        LUAC="$(STAGING_DIR_HOST)/bin/luac" \
-        OPT_FLAGS="$(TARGET_CFLAGS) --std=c99 -Dpthread_yield=sched_yield"
+Lanes is included into your software by the regular require "lanes" method.
+No C side programming is needed; all APIs are Lua side, and most existing
+extension modules should work seamlessly together with the multiple lanes.
+
+Lanes supports Lua 5.1, 5.2 and 5.3
 endef
 
 define Package/lualanes/install
 	$(INSTALL_DIR) $(1)/usr/lib/lua
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/lanes.lua $(1)/usr/lib/lua/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/share/lua/lmod/lanes.lua $(1)/usr/lib/lua/
 	$(INSTALL_DIR) $(1)/usr/lib/lua/lanes
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/src/lanes/core.so $(1)/usr/lib/lua/lanes/core.so
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/share/lua/cmod/core.so $(1)/usr/lib/lua/lanes/core.so
 endef
 
 $(eval $(call BuildPackage,lualanes))

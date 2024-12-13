@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2006-2009 OpenWrt.org
+# Copyright (C) 2006-2015 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,13 +8,21 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=haserl
-PKG_VERSION:=0.9.33
+PKG_VERSION:=0.9.36
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/haserl
-PKG_MD5SUM:=a9decddb508944d56f71dd2f821e2ec5
-PKG_MAINTAINER:=Maxim Storchak <m.storchak@gmail.com>
+PKG_HASH:=8f6048bfc77dfe8d1032aec2e708fddfa36d225c25d14b474f70ba7d6eefabc1
+PKG_MAINTAINER:=
+PKG_LICENSE:=GPL-2.0
+PKG_LICENSE_FILES:=COPYING
+PKG_CPE_ID:=cpe:/a:haserl_project:haserl
+
+PKG_CONFIG_DEPENDS:= \
+	CONFIG_HASERL_with_lua \
+	CONFIG_HASERL_shell_luac \
+	CONFIG_HASERL_shell_lua \
 
 include $(INCLUDE_DIR)/package.mk
 

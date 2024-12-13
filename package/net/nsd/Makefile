@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 OpenWrt.org
+# Copyright (C) 2014-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,27 +8,26 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nsd
-PKG_VERSION:=4.0.3
+PKG_VERSION:=4.6.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://www.nlnetlabs.nl/downloads/nsd
-PKG_MD5SUM:=9331dd18478295206775433a0b23e490
-PKG_FIXUP:=autoreconf
-PKG_INSTALL:=1
-
-PKG_LICENSE:=BSD-3c
-PKG_LICENSE_FILES:=LICENSE
+PKG_SOURCE_URL:=https://www.nlnetlabs.nl/downloads/nsd
+PKG_HASH:=3f60a3a13ec3f68e84bfa7e19daff663c82bcf1de96e4f53f2246525e773a27a
 
 PKG_MAINTAINER:=Vasilis Tsiligiannis <acinonyx@openwrt.gr>
+PKG_LICENSE:=BSD-3-Clause
+PKG_LICENSE_FILES:=LICENSE
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_INSTALL:=1
+PKG_BUILD_PARALLEL:=1
+PKG_FIXUP:=autoreconf
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/nsd/default
   TITLE:=NSD Name Server Daemon
-  URL:=http://www.nlnetlabs.nl/projects/nsd/
+  URL:=https://www.nlnetlabs.nl/projects/nsd/
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=IP Addresses and Names
@@ -85,22 +84,22 @@ define Package/nsd-control-setup/description
 endef
 
 CONFIGURE_ARGS+= \
+	--enable-packed \
+	--enable-recvmmsg \
+	--enable-tcp-fastopen \
 	--disable-checking \
-	--with-libevent=no \
 	--with-user="network" \
+	--without-libevent \
+	$(if $(CONFIG_IPV6),--with,--without)-ipv6
 
 CONFIGURE_VARS+= \
 	ac_cv_c_va_list_def=no \
-	ac_cv_c_strptime_needs_defs=no \
+	ac_cv_c_strptime_needs_defs=no
 
 ifeq ($(BUILD_VARIANT),ssl)
-	CONFIGURE_ARGS += \
-		--with-ssl="$(STAGING_DIR)/usr"
-endif
-
-ifeq ($(BUILD_VARIANT),nossl)
-	CONFIGURE_ARGS += \
-		--without-ssl
+	CONFIGURE_ARGS += --with-ssl="$(STAGING_DIR)/usr"
+else
+	CONFIGURE_ARGS += --without-ssl
 endif
 
 define Package/nsd/conffiles

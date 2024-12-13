@@ -8,19 +8,19 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libp11
-PKG_VERSION:=20131021
+PKG_VERSION:=0.4.12
 PKG_RELEASE:=1
-PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 
-PKG_RELEASE=$(PKG_SOURCE_VERSION)
-
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/OpenSC/libp11.git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=ab6306ee7ede9b2fb9c1fa2c3694c6e7ff044a9e
+PKG_SOURCE_URL:=https://github.com/OpenSC/libp11/releases/download/$(PKG_NAME)-$(PKG_VERSION)/
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_FIXUP:=libtool
+PKG_HASH:=1e1a2533b3fcc45fde4da64c9c00261b1047f14c3f911377ebd1b147b3321cfd
 
+PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
+PKG_LICENSE:=LGPL-2.1-or-later
+PKG_LICENSE_FILES:=COPYING
+
+PKG_BUILD_PARALLEL:=1
+PKG_FIXUP:=libtool
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -30,7 +30,8 @@ define Package/libp11
   CATEGORY:=Libraries
   TITLE:=PKCS#11 wrapper library
   URL:=https://www.opensc-project.org/opensc/wiki/libp11
-  DEPENDS:=+libopenssl
+  DEPENDS:=+libopenssl +@OPENSSL_ENGINE
+  CONFLICTS:=engine_pkcs11
 endef
 
 define Package/libp11/description
@@ -38,9 +39,11 @@ define Package/libp11/description
   to make using PKCS#11 implementations easier.
 endef
 
+CONFIGURE_ARGS += --with-enginesdir=/usr/lib/engines
+
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/
-	$(CP) $(PKG_INSTALL_DIR)/usr/include/libp11.h $(1)/usr/include/
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/*.h $(1)/usr/include/
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libp11.{a,so} $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libp11.so* $(1)/usr/lib/
@@ -49,8 +52,11 @@ define Build/InstallDev
 endef
 
 define Package/libp11/install
-	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libp11.so.* $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib/engines
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/engines/*.so* $(1)/usr/lib/engines
+	$(LN) pkcs11.so $(1)/usr/lib/engines/libpkcs11.so
 endef
 
 $(eval $(call BuildPackage,libp11))

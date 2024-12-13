@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2006-2014 OpenWrt.org
+# Copyright (C) 2006-2016 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -8,21 +8,21 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=alsa-lib
-PKG_VERSION:=1.0.27.2
+PKG_VERSION:=1.2.9
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=ftp://ftp.alsa-project.org/pub/lib/ \
-		http://alsa.cybermirror.org/lib/
-PKG_MD5SUM:=69129a7c37697f81ac092335e9fa452b
+PKG_SOURCE_URL:=https://www.alsa-project.org/files/pub/lib/ \
+		https://distfiles.gentoo.org/distfiles/
+PKG_HASH:=dc9c643fdc4ccfd0572cc685858dd41e08afb583f30460b317e4188275f615b2
 
-PKG_LICENSE:=LGPLv2.1 GPLv2
-PKG_LICENSE_FILE:=COPYING aserver/COPYING
+PKG_MAINTAINER:=Ted Hess <thess@kitschensync.net>, \
+		Peter Wagner <tripolar@gmx.at>
 
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
-PKG_USE_MIPS16:=0
-PKG_CHECK_FORMAT_SECURITY:=0
+PKG_BUILD_PARALLEL:=1
+PKG_BUILD_FLAGS:=no-mips16 no-lto
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -31,8 +31,9 @@ define Package/alsa-lib
   CATEGORY:=Libraries
   TITLE:=ALSA (Advanced Linux Sound Architecture) library
   URL:=http://www.alsa-project.org/
-  MAINTAINER:=Peter Wagner <tripolar@gmx.at>
   DEPENDS:=@AUDIO_SUPPORT +kmod-sound-core +libpthread +librt
+  LICENSE:=LGPL-2.1-or-later
+  LICENSE_FILES:=COPYING
 endef
 
 define Package/alsa-lib/description
@@ -40,17 +41,32 @@ define Package/alsa-lib/description
  You must have enabled the ALSA support in the kernel.
 endef
 
+define Package/aserver
+  SECTION:=sound
+  CATEGORY:=Sound
+  TITLE:=ALSA (Advanced Linux Sound Architecture) server
+  URL:=http://www.alsa-project.org/
+  DEPENDS:=+alsa-lib
+  LICENSE:=GPL-2.0-or-later
+  LICENSE_FILES:=aserver/COPYING
+endef
+
+define Package/aserver/description
+ This is the aserver application for ALSA.
+endef
+
+define Package/alsa-lib/conffiles
+/etc/asound.conf
+endef
+
 TARGET_CFLAGS += $(FPIC)
 
-define Build/Configure
-	$(call Build/Configure/Default, \
+CONFIGURE_ARGS+= \
 		--disable-python \
 		--disable-debug \
 		--without-debug \
-		$(SOFT_FLOAT_CONFIG_OPTION) \
-		--with-versioned=no \
-	)
-endef
+		--without-versioned \
+		$(SOFT_FLOAT_CONFIG_OPTION)
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/
@@ -61,6 +77,9 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
 	$(CP) \
 		$(PKG_INSTALL_DIR)/usr/lib/libasound.{la,so*} \
+		$(1)/usr/lib/
+	$(CP) \
+		$(PKG_INSTALL_DIR)/usr/lib/libatopology.{la,so*} \
 		$(1)/usr/lib/
 	$(INSTALL_DATA) \
 		$(PKG_INSTALL_DIR)/usr/lib/pkgconfig/alsa.pc \
@@ -77,11 +96,17 @@ define Package/alsa-lib/install
 	$(CP) \
 		$(PKG_INSTALL_DIR)/usr/lib/libasound.so.* \
 		$(1)/usr/lib/
+	$(CP) \
+		$(PKG_INSTALL_DIR)/usr/lib/libatopology.so.* \
+		$(1)/usr/lib/
 
-	$(INSTALL_DIR) $(1)/usr/share/alsa/{cards,pcm}
+	$(INSTALL_DIR) $(1)/usr/share/alsa/{cards,ctl,pcm}
 	$(INSTALL_DATA) \
 		$(PKG_INSTALL_DIR)/usr/share/alsa/alsa.conf \
 		$(1)/usr/share/alsa/
+	$(INSTALL_DATA) \
+		$(PKG_INSTALL_DIR)/usr/share/alsa/ctl/* \
+		$(1)/usr/share/alsa/ctl/
 	$(INSTALL_DATA) \
 		$(PKG_INSTALL_DIR)/usr/share/alsa/pcm/* \
 		$(1)/usr/share/alsa/pcm/
@@ -90,4 +115,10 @@ define Package/alsa-lib/install
 		$(1)/usr/share/alsa/cards/
 endef
 
+define Package/aserver/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/aserver $(1)/usr/bin
+endef
+
 $(eval $(call BuildPackage,alsa-lib))
+$(eval $(call BuildPackage,aserver))

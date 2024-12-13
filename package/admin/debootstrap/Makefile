@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2010 Gianluigi Tiesi <sherpya@netfarm.it>
-# Copyright (C) 2011-2013 OpenWrt.org
+# Copyright (C) 2011-2014 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,13 +9,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=debootstrap
-PKG_VERSION:=1.0.60~bpo70+1
+PKG_VERSION:=1.0.126
 PKG_RELEASE:=1
-PKG_MAINTAINER=Daniel Golle <daniel@makrotopia.org>
 
 PKG_SOURCE:=$(PKG_NAME)-udeb_$(PKG_VERSION)_all.udeb
-PKG_SOURCE_URL:=http://ftp.debian.org/debian/pool/main/d/debootstrap
-PKG_MD5SUM:=6d4e3b97981b9e0bb86f49d8edac91af
+PKG_SOURCE_URL:=@DEBIAN/pool/main/d/debootstrap
+PKG_HASH:=ca8233789167fd7ddf50aab8d4cb5085436832efdf54423fa3e446832d625a92
+
+PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
+PKG_LICENSE:=Unique
+PKG_LICENSE_FILES:=debian/copyright
 
 UNPACK_CMD=ar -p "$(DL_DIR)/$(PKG_SOURCE)" data.tar.xz | xzcat | tar -C $(1) -xf -
 
@@ -25,8 +28,8 @@ define Package/debootstrap
   SECTION:=admin
   CATEGORY:=Administration
   TITLE:=Bootstrap a basic Debian system
-  URL:=http://wiki.debian.org/Debootstrap
-  DEPENDS:= +coreutils +coreutils-chroot +coreutils-sha1sum
+  URL:=https://wiki.debian.org/Debootstrap
+  DEPENDS:= +coreutils +coreutils-chroot +coreutils-sha1sum +ar +xz-utils +xz
 endef
 
 define Package/debootstrap/description
@@ -47,9 +50,8 @@ define Package/debootstrap/install
 	$(INSTALL_DIR) $(1)/usr/share/debootstrap
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/usr/share/debootstrap/pkgdetails $(1)/usr/share/debootstrap
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/usr/share/debootstrap/functions $(1)/usr/share/debootstrap
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/usr/share/debootstrap/devices.tar.gz $(1)/usr/share/debootstrap
 	$(INSTALL_DIR) $(1)/usr/share/debootstrap/scripts
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/usr/share/debootstrap/scripts/* $(1)/usr/share/debootstrap/scripts
+	$(CP) $(PKG_BUILD_DIR)/usr/share/debootstrap/scripts/* $(1)/usr/share/debootstrap/scripts
 endef
 
 $(eval $(call BuildPackage,debootstrap))
