@@ -19,7 +19,7 @@ PKG_BUILD_PARALLEL:=1
 PKG_FIXUP:=meson
 PKG_INSTALL:=1
 
-PKG_BUILD_DEPENDS:=libpng freetype libjpeg luajit libglib2 zlib lz4
+PKG_BUILD_DEPENDS:=libpng libfreetype libjpeg-turble luajit libglib2 zlib liblz4
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
@@ -28,7 +28,7 @@ define Package/efl
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Enlightenment Foundation Libraries
-  DEPENDS:=+libpng +freetype +libjpeg +libglib2 +luajit +zlib +lz4
+  DEPENDS:=+libpng +libfreetype +libjpeg-turble +libglib2 +luajit +zlib +liblz4
   URL:=https://www.enlightenment.org
 endef
 
