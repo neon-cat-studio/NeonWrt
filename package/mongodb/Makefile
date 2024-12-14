@@ -31,7 +31,7 @@ define Package/mongodb
   CATEGORY:=MongoDB
   TITLE:=MongoDB
   URL:=https://www.mongodb.com/
-  DEPENDS:=+libc +libcurl +libpthread +librt +libstdcpp +zlib +zstd +libtcmalloc\
+  DEPENDS:=+libc +libcurl +libpthread +librt +libstdcpp +zlib +zstd +gperftools-runtime\
 	+libpcre +libpcrecpp +boost +boost-filesystem +boost-program_options +boost-log\
 	+boost-iostreams +boost-thread +libyaml-cpp +libstemmer +libbenchmark +libsnappy\
 	+sqlite3-cli +libopenssl +icu +icu-full-data
