@@ -1,6 +1,9 @@
-# OpenWRT Package Makefile for dbus
 #
-# SPDX-License-Identifier: AFL-2.1 OR GPL-2.0+
+# Copyright (C) 2007-2015 OpenWrt.org
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
 
 include $(TOPDIR)/rules.mk
 
@@ -12,42 +15,106 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://dbus.freedesktop.org/releases/dbus
 PKG_HASH:=skip
 
-PKG_LICENSE:=AFL-2.1 OR GPL-2.0+
-PKG_LICENSE_FILES:=COPYING
+PKG_MAINTAINER:=
+PKG_LICENSE:=AFL-2.1
 PKG_CPE_ID:=cpe:/a:freedesktop:dbus
 
 PKG_BUILD_PARALLEL:=1
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
+PKG_CONFIG_DEPENDS:= \
+	CONFIG_DBUS_VERBOSE
+
 PKG_BUILD_DEPENDS:=expat
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/dbus
-  SECTION:=libs
+define Package/dbus/Default
+  SECTION:=utils
+  CATEGORY:=Utilities
+  TITLE:=Simple interprocess messaging system
+  URL:=https://dbus.freedesktop.org/
+endef
+
+define Package/dbus/Default/description
+ D-Bus is a message bus system, a simple way for applications to talk to one
+ another. In addition to interprocess communication, D-Bus helps coordinate
+ process lifecycle; it makes it simple and reliable to code a "single instance"
+ application or daemon, and to launch applications and daemons on demand when
+ their services are needed.
+endef
+
+define Package/libdbus
+$(call Package/dbus/Default)
   CATEGORY:=Libraries
-  TITLE:=D-Bus message bus system
-  URL:=https://www.freedesktop.org/wiki/Software/dbus/
-  DEPENDS:=+libexpat +systemd
+  TITLE+= (library)
+  DEPENDS:= +libpthread
 endef
 
-define Package/dbus/description
-  D-Bus is a message bus system, a simple way for applications to talk to each other.
-  It is designed for two specific use cases: communication between desktop applications,
-  and communication between the desktop session and the operating system.
+define Package/libdbus/Description
+$(call Package/dbus/Default/description)
+ This package contains the D-Bus shared library.
 endef
 
-# Configuration options
+define Package/dbus
+$(call Package/dbus/Default)
+ TITLE+= (daemon)
+ DEPENDS:= +libexpat +libdbus
+endef
+
+define Package/dbus/Description
+$(call Package/dbus/Default/description)
+ This package contains the D-Bus daemon.
+endef
+
+define Package/dbus-utils
+$(call Package/dbus/Default)
+ TITLE+= (utilities)
+ DEPENDS:= +dbus
+endef
+
+define Package/dbus-utils/Description
+$(call Package/dbus/Default/description)
+ This package contains D-Bus utilities.
+endef
+
+define Package/dbus/config
+  source "$(SOURCE)/Config.in"
+endef
+
 CONFIGURE_ARGS += \
-	--with-dbus-user=dbus \
-	--disable-tests \
+	--disable-maintainer-mode \
+	--disable-developer \
+	--enable-debug=no \
+	--enable-shared \
+	--disable-static \
+	--disable-verbose-mode \
 	--disable-asserts \
 	--disable-xml-docs \
 	--disable-doxygen-docs \
+	--disable-ducktype-docs \
+	--disable-selinux \
+	--disable-apparmor \
+	--disable-libaudit \
+	--enable-inotify \
+	--disable-kqueue \
+	--disable-console-owner-file \
+	--disable-systemd \
+	--disable-tests \
+	--disable-code-coverage \
+	--disable-x11-autolaunch \
+	--with-session-socket-dir=/tmp \
 	--with-system-socket=/var/run/dbus/system_bus_socket \
-	--with-system-pid-file=/var/run/messagebus.pid \
-	--runstatedir=/var/run
+	--with-system-pid-file=/var/run/dbus.pid \
+	--with-dbus-user=root \
+	--without-x \
+	--enable-qt-help=no \
+	--disable-xml-docs
+
+ifeq ($(CONFIG_DBUS_VERBOSE),y)
+  CONFIGURE_ARGS += --enable-verbose-mode
+endif
 
 ifeq ($(CONFIG_PACKAGE_libselinux),y)
 CONFIGURE_ARGS += --enable-selinux
@@ -60,22 +127,53 @@ CONFIGURE_ARGS += \
 endif
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/include/dbus-1.0
-	$(CP) $(PKG_BUILD_DIR)/dbus $(1)/usr/include/dbus-1.0
+	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/dbus-1.0 $(1)/usr/include/
+	$(INSTALL_DIR) $(1)/usr/lib/dbus-1.0/include/dbus/
+	$(INSTALL_DATA) \
+		$(PKG_INSTALL_DIR)/usr/lib/dbus-1.0/include/dbus/*.h \
+		$(1)/usr/lib/dbus-1.0/include/dbus/
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_BUILD_DIR)/libdbus* $(1)/usr/lib/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/libdbus-1.so* \
+		$(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/dbus-1.0 $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/dbus-1.pc \
+		$(1)/usr/lib/pkgconfig/
+endef
+
+define Package/libdbus/install
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libdbus-1.so.* $(1)/usr/lib/
 endef
 
 define Package/dbus/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bus/dbus-daemon $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/dbus-cleanup-sockets $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/dbus-daemon $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/dbus-launch $(1)/usr/bin/dbus-launch.real
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/dbus-uuidgen $(1)/usr/bin/
+	$(INSTALL_BIN) ./files/dbus-launch $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_BUILD_DIR)/libdbus* $(1)/usr/lib/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/dbus-daemon-launch-helper $(1)/usr/lib/
 	$(INSTALL_DIR) $(1)/etc/dbus-1
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/bus/session.conf $(1)/etc/dbus-1/
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/bus/system.conf $(1)/etc/dbus-1/
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/dbus.init $(1)/etc/init.d/dbus
+	$(INSTALL_DIR) $(1)/usr/share/dbus-1
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/dbus-1 $(1)/usr/share/
 	$(INSTALL_DIR) $(1)/var/lib/dbus
 	ln -sf /etc/machine-id $(1)/var/lib/dbus/machine-id
 endef
 
+define Package/dbus-utils/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/dbus-monitor $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/dbus-send $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/dbus-test-tool $(1)/usr/bin/
+endef
+
+$(eval $(call BuildPackage,libdbus))
 $(eval $(call BuildPackage,dbus))
+$(eval $(call BuildPackage,dbus-utils))
