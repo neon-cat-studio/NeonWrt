@@ -1,12 +1,10 @@
 --- a/meson.build         2024-06-18 12:34:56.000000000 +0800
 +++ b/meson.build         2024-06-18 12:35:10.000000000 +0800
-@@ -28,6 +28,9 @@
+@@ -28,6 +28,7 @@
  conf.set('PROJECT_VERSION', project_major_version,
           description : 'Numerical project version (used where a simple number is expected)')
  conf.set_quoted('PROJECT_VERSION_FULL', meson.project_version(), description : 'Full project version')
 +conf.set('ENABLE_GSHADOW', 0)
-+conf.set('__PRCTL_MM_MAP_DEFINED', 1)
-+add_project_arguments('-D__PRCTL_MM_MAP_DEFINED', language: 'c')
 
  libsystemd_version = '0.39.0'
  libudev_version = '1.7.9'
