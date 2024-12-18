@@ -19,7 +19,7 @@ PKG_BUILD_PARALLEL:=1
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
-PKG_BUILD_DEPENDS:=libblkid libkmod libpthread
+PKG_BUILD_DEPENDS:=libblkid kmod libpthread
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -27,7 +27,7 @@ define Package/udev
   SECTION:=base
   CATEGORY:=Base system
   TITLE:=udev - Dynamic device management
-  DEPENDS:=+libblkid +libkmod +libpthread
+  DEPENDS:=+libblkid +kmod +libpthread
   URL:=https://www.kernel.org/pub/linux/utils/kernel/hotplug/udev
 endef
 

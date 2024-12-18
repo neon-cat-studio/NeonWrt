@@ -14,7 +14,7 @@ PKG_LICENSE_FILES:=LICENSE.GPL2 LICENSE.LGPL2.1
 PKG_BUILD_PARALLEL:=1
 
 PKG_INSTALL:=1
-PKG_BUILD_DEPENDS:=libcap libxcrypt kmod util-linux libglib2
+PKG_BUILD_DEPENDS:=libcap libxcrypt kmod mount-utils fdisk lsblk blkid logger libglib2
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -23,7 +23,7 @@ define Package/systemd
   SECTION:=base
   CATEGORY:=Base system
   TITLE:=Systemd init system
-  DEPENDS:=+libc +libcap +libxcrypt +kmod +util-linux
+  DEPENDS:=+libc +libcap +libxcrypt +kmod +mount-utils +fdisk +lsblk +blkid +logger
 endef
 
 define Package/systemd/description
