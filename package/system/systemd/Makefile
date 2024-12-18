@@ -30,6 +30,8 @@ endef
 
 TARGET_CFLAGS += -O3 -fno-finite-math-only
 MESON_ARGS += \
+    -Dc_args='-DENABLE_GSHADOW=0' \
+    -Dcpp_args='-DENABLE_GSHADOW=0'
 	-Ddefault-locale='C.UTF-8' \
 	-Ddefault-user-shell=/bin/sh \
 	-Dkexec-path=/usr/sbin/kexec \
