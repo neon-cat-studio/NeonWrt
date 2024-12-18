@@ -1,14 +1,13 @@
 --- a/src/basic/missing_prctl.h
 +++ b/src/basic/missing_prctl.h
-@@ -1,6 +1,21 @@
+@@ -1,6 +1,22 @@
  /* SPDX-License-Identifier: LGPL-2.1-or-later */
  #pragma once
 
 +#include <linux/prctl.h>
 +
-+/* 防止 struct prctl_mm_map 重複定義 */
 +#if defined(__linux__) && defined(PR_CAP_AMBIENT) && defined(__PRCTL_MM_MAP_DEFINED)
-+#  undef __PRCTL_MM_MAP_DEFINED
++#undef __PRCTL_MM_MAP_DEFINED
 +#endif
 +
 +#ifndef __PRCTL_MM_MAP_DEFINED
@@ -24,10 +23,7 @@
 +    unsigned long arg_end;
 +    unsigned long env_start;
 +    unsigned long env_end;
-+    unsigned long auxv;
-+    unsigned long auxv_size;
 +};
 +#define __PRCTL_MM_MAP_DEFINED
 +#endif
-
  #include "macro.h"
