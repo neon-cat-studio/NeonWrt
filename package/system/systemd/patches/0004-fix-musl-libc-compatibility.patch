@@ -1,6 +1,6 @@
 --- a/src/basic/sort-util.h
 +++ b/src/basic/sort-util.h
-@@ -1,6 +1,14 @@
+@@ -1,6 +1,12 @@
  /* SPDX-License-Identifier: LGPL-2.1-or-later */
  #pragma once
  
@@ -10,28 +10,34 @@
 +#define __comparison_fn_t_defined
 +#endif
 +
- #include <stddef.h>
+ #include <stdlib.h>
  
- void qsort_safe(void *base, size_t nmemb, size_t size, comparison_fn_t compar);
+ #include "macro.h"
 
 --- a/src/basic/pidref.h
 +++ b/src/basic/pidref.h
-@@ -1,6 +1,8 @@
+@@ -1,8 +1,10 @@
  /* SPDX-License-Identifier: LGPL-2.1-or-later */
  #pragma once
  
 +#include <signal.h> /* 添加 SIGKILL 和 siginfo_t 定義 */
 +
+ /* An embeddable structure carrying a reference to a process. Supposed to be used when tracking processes continuously. */
  typedef struct PidRef {
-         pid_t pid;
+         pid_t pid; /* always valid */
+         int fd;    /* only valid if pidfd are available in the kernel, and we manage to get an fd */
  } PidRef;
 
 --- a/src/basic/glob-util.c
 +++ b/src/basic/glob-util.c
-@@ -1,6 +1,15 @@
+@@ -1,10 +1,19 @@
  /* SPDX-License-Identifier: LGPL-2.1-or-later */
  
  #include <glob.h>
+ #include <stdbool.h>
+ 
+ #include "macro.h"
+ #include "string-util.h"
 +
 +/* 修復 Musl libc 缺少的 GLOB_ALTDIRFUNC 和 GLOB_BRACE 定義 */
 +#ifndef GLOB_ALTDIRFUNC
@@ -42,16 +48,17 @@
 +#define GLOB_BRACE 0
 +#endif
  
- #include "alloc-util.h"
- #include "dirent-util.h"
+ /* Note: this function modifies pglob to set various functions. */
+ int safe_glob(const char *path, int flags, glob_t *pglob);
 
 --- a/src/basic/format-util.c
 +++ b/src/basic/format-util.c
-@@ -1,6 +1,8 @@
+@@ -1,7 +1,9 @@
  /* SPDX-License-Identifier: LGPL-2.1-or-later */
  #pragma once
  
 +#include <signal.h> /* 添加 siginfo_t 定義 */
 +
+ #include <inttypes.h>
+ #include <net/if.h>
  #include <stdbool.h>
- #include <stddef.h>
