@@ -19,8 +19,6 @@ PKG_BUILD_PARALLEL:=1
 PKG_FIXUP:=meson
 PKG_INSTALL:=1
 
-PKG_BUILD_DEPENDS:=libpng libfreetype libjpeg-turbo luajit libglib2 zlib liblz4
-
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
 

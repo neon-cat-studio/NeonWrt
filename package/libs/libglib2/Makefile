@@ -19,7 +19,6 @@ PKG_BUILD_PARALLEL:=1
 PKG_FIXUP:=meson
 PKG_INSTALL:=1
 
-PKG_BUILD_DEPENDS:=libffi libpcre2 zlib
 HOST_BUILD_DEPENDS:=host-pkgconf host-libffi host-pcre2
 
 include $(INCLUDE_DIR)/package.mk
