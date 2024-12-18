@@ -1,5 +1,5 @@
---- missing_prctl.h	2024-10-08 23:42:30.000000000 +0800
-+++ missing_prctl.h	2024-12-19 03:15:35.263949750 +0800
+--- a/src/basic/missing_prctl.h	2024-10-08 23:42:30.000000000 +0800
++++ b/src/basic/missing_prctl.h	2024-12-19 03:15:35.263949750 +0800
 @@ -1,7 +1,15 @@
  /* SPDX-License-Identifier: LGPL-2.1-or-later */
  #pragma once
