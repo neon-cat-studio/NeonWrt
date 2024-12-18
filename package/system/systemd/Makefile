@@ -53,10 +53,6 @@ define Package/systemd/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/systemctl $(1)/usr/bin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/journalctl $(1)/usr/bin/
 
-	# 安裝 init.d 啟動腳本
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/systemd.init $(1)/etc/init.d/systemd
-
 	# 安裝 system.conf 配置檔案
 	$(INSTALL_DIR) $(1)/etc/systemd
 	$(INSTALL_CONF) ./files/systemd.conf $(1)/etc/systemd/system.conf
