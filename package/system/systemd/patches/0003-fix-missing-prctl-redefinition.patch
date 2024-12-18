@@ -1,0 +1,19 @@
+--- missing_prctl.h	2024-10-08 23:42:30.000000000 +0800
++++ missing_prctl.h	2024-12-19 03:15:35.263949750 +0800
+@@ -1,7 +1,15 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ #pragma once
+ 
+-#include <linux/prctl.h>
++/* 先檢查 sys/prctl.h 是否已定義 prctl_mm_map */
++#ifdef __linux__
++#  include <sys/prctl.h>
++#endif
++
++/* 再根據條件判斷是否包含 linux/prctl.h */
++#if defined(__linux__) && !defined(PR_SET_MM) /* 或者其他標識符 */
++#  include <linux/prctl.h>
++#endif
+ 
+ #include "macro.h"
+ 
