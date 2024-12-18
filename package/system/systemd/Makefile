@@ -22,7 +22,7 @@ define Package/systemd
   SECTION:=base
   CATEGORY:=Base system
   TITLE:=Systemd init system
-  DEPENDS:=+libc +libcap +libxcrypt +libglib2 +kmod +mount-utils +fdisk +lsblk +blkid +logger
+  DEPENDS:=+libc +libcap +libxcrypt +kmod +mount-utils +fdisk +lsblk +blkid +logger
 endef
 
 define Package/systemd/description
