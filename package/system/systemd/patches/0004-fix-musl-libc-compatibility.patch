@@ -30,14 +30,13 @@
 
 --- a/src/basic/glob-util.c
 +++ b/src/basic/glob-util.c
-@@ -1,10 +1,19 @@
+@@ -1,13 +1,22 @@
  /* SPDX-License-Identifier: LGPL-2.1-or-later */
  
- #include <glob.h>
- #include <stdbool.h>
- 
- #include "macro.h"
- #include "string-util.h"
+ #include <errno.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <unistd.h>
 +
 +/* 修復 Musl libc 缺少的 GLOB_ALTDIRFUNC 和 GLOB_BRACE 定義 */
 +#ifndef GLOB_ALTDIRFUNC
@@ -48,17 +47,21 @@
 +#define GLOB_BRACE 0
 +#endif
  
- /* Note: this function modifies pglob to set various functions. */
- int safe_glob(const char *path, int flags, glob_t *pglob);
+ #include "dirent-util.h"
+ #include "errno-util.h"
+ #include "glob-util.h"
+ #include "macro.h"
+ #include "path-util.h"
+ #include "strv.h"
 
 --- a/src/basic/format-util.c
 +++ b/src/basic/format-util.c
 @@ -1,7 +1,9 @@
  /* SPDX-License-Identifier: LGPL-2.1-or-later */
- #pragma once
  
 +#include <signal.h> /* 添加 siginfo_t 定義 */
 +
- #include <inttypes.h>
- #include <net/if.h>
- #include <stdbool.h>
+ #include "format-util.h"
+ #include "memory-util.h"
+ #include "stdio-util.h"
+ #include "strxcpyx.h"
