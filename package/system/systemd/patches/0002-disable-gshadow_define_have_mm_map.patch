@@ -5,7 +5,7 @@
           description : 'Numerical project version (used where a simple number is expected)')
  conf.set_quoted('PROJECT_VERSION_FULL', meson.project_version(), description : 'Full project version')
 +conf.set('ENABLE_GSHADOW', 0)
-+conf.set('HAVE_PRCTL_MM_MAP', 1)
++conf.set('__PRCTL_MM_MAP_DEFINED', 1)
 +add_project_arguments('-D__PRCTL_MM_MAP_DEFINED', language: 'c')
 
  libsystemd_version = '0.39.0'
