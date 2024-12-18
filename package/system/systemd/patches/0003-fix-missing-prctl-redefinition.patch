@@ -1,9 +1,9 @@
---- a/src/basic/missing_prctl.h
-+++ b/src/basic/missing_prctl.h
-@@ -1,6 +1,22 @@
- /* SPDX-License-Identifier: LGPL-2.1-or-later */
+--- missing_prctl.h	2024-10-08 23:42:30.000000000 +0800
++++ missing_prctl.h	2024-12-19 02:42:30.404342887 +0800
+@@ -2,6 +2,28 @@
  #pragma once
-
+ 
+ #include <linux/prctl.h>
 +#include <linux/prctl.h>
 +
 +#if defined(__linux__) && defined(PR_CAP_AMBIENT) && defined(__PRCTL_MM_MAP_DEFINED)
@@ -26,4 +26,6 @@
 +};
 +#define __PRCTL_MM_MAP_DEFINED
 +#endif
+ 
  #include "macro.h"
+ 
