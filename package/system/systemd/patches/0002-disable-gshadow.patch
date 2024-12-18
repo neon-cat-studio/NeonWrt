@@ -1,0 +1,4 @@
+--- a/meson.build
++++ b/meson.build
+@@ -XXX,0 +YYY,2 @@
+conf.set('ENABLE_GSHADOW', 0)
