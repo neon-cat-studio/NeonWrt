@@ -1,4 +1,8 @@
 --- a/meson.build
 +++ b/meson.build
-@@ -XXX,0 +YYY,2 @@
-conf.set('ENABLE_GSHADOW', 0)
+@@ -XX,6 +XX,7 @@
+ conf.set('PROJECT_VERSION', project_major_version,
+          description : 'Numerical project version (used where a simple number is expected)')
+ conf.set_quoted('PROJECT_VERSION_FULL', meson.project_version(), description : 'Full project version')
+
++conf.set('ENABLE_GSHADOW', 0)
