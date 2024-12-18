@@ -1,0 +1,8 @@
+--- a/src/basic/stdio-util.h
++++ b/src/basic/stdio-util.h
+@@ -1,4 +1,4 @@
+-#include <printf.h>
++#include <stdio.h>
+ #include <stdarg.h>
+ #include <stdbool.h>
+ #include <unistd.h>
