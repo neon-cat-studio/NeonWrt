@@ -19,7 +19,7 @@ PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
 PKG_BUILD_DEPENDS:=libsigc
-PKG_CONFIG_DEPENDS:=PACKAGE_libglib2 PACKAGE_qt5base
+PKG_CONFIG_DEPENDS:=PACKAGE_glib2 PACKAGE_qt5base
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -28,7 +28,7 @@ define Package/dbus-cxx
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=C++ wrapper for D-Bus
-  DEPENDS:=+libsigc +libglib2 +qt5base
+  DEPENDS:=+libsigc +glib2 +qt5base
   URL:=https://github.com/dbus-cxx/dbus-cxx
 endef
 

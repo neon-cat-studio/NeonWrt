@@ -26,7 +26,7 @@ define Package/efl
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Enlightenment Foundation Libraries
-  DEPENDS:=+libpng +libfreetype +libjpeg-turbo +libglib2 +luajit +zlib +liblz4
+  DEPENDS:=+libpng +libfreetype +libjpeg-turbo +glib2 +luajit +zlib +liblz4
   URL:=https://www.enlightenment.org
 endef
 

@@ -19,7 +19,7 @@ PKG_BUILD_PARALLEL:=1
 PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
-PKG_BUILD_DEPENDS:=dbus libglib2 python3
+PKG_BUILD_DEPENDS:=dbus glib2 python3
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
@@ -28,7 +28,7 @@ define Package/dbus-python
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Python bindings for D-Bus
-  DEPENDS:=+python3 +dbus +libglib2
+  DEPENDS:=+python3 +dbus +glib2
   URL:=https://dbus.freedesktop.org
 endef
 

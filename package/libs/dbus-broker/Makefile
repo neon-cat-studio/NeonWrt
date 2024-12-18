@@ -65,10 +65,10 @@ define Package/dbus-broker/install
 
 	# systemd integration
 	$(INSTALL_DIR) $(1)/usr/lib/systemd/system
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/dbus.socket $(1)/usr/lib/systemd/system/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/files/dbus.socket $(1)/usr/lib/systemd/system/
 	$(INSTALL_DIR) $(1)/usr/share/dbus-1
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/session.conf $(1)/usr/share/dbus-1/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/system.conf $(1)/usr/share/dbus-1/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/files/session.conf $(1)/usr/share/dbus-1/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/files/system.conf $(1)/usr/share/dbus-1/
 endef
 
 $(eval $(call BuildPackage,dbus-broker))

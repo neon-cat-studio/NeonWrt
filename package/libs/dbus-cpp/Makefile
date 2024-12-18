@@ -20,7 +20,7 @@ PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 PKG_BUILD_DEPENDS:=dbus expat
-PKG_CONFIG_DEPENDS:=PACKAGE_libglib2 PACKAGE_efl
+PKG_CONFIG_DEPENDS:=PACKAGE_glib2 PACKAGE_efl
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -28,7 +28,7 @@ define Package/dbus-cpp
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=C++ API for D-Bus message bus
-  DEPENDS:=+dbus +libexpat +libglib2 +efl
+  DEPENDS:=+dbus +libexpat +glib2 +efl
   URL:=https://sourceforge.net/projects/dbus-cplusplus/
 endef
 

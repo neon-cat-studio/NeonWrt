@@ -12,11 +12,10 @@ PKG_LICENSE:=LGPL-2.1+ GPL-2.0+
 PKG_LICENSE_FILES:=LICENSE.GPL2 LICENSE.LGPL2.1
 
 PKG_BUILD_PARALLEL:=1
-
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/cmake.mk
+include $(INCLUDE_DIR)/meson.mk   # 改用 meson.mk
 
 define Package/systemd
   SECTION:=base
@@ -44,15 +43,6 @@ MESON_ARGS += \
 	-Dtests=false \
 	-Dinstall-tests=false \
 	-Ddefault-dnssec=allow-downgrade
-
-# 設定 systemd 的 build 流程
-define Build/Configure
-	$(call Build/Configure/Default)
-endef
-
-define Build/Compile
-	$(call Build/Compile/Default)
-endef
 
 define Package/systemd/install
 	$(INSTALL_DIR) $(1)/usr/lib/systemd
