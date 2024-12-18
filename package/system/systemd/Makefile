@@ -59,7 +59,7 @@ define Package/systemd/install
 
 	# 安裝 system.conf 配置檔案
 	$(INSTALL_DIR) $(1)/etc/systemd
-	$(INSTALL_CONF) ./files/system.conf $(1)/etc/systemd/system.conf
+	$(INSTALL_CONF) ./files/systemd.conf $(1)/etc/systemd/system.conf
 endef
 
 define Package/systemd/postinst
