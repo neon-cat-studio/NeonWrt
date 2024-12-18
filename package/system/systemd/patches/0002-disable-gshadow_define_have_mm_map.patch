@@ -5,6 +5,7 @@
           description : 'Numerical project version (used where a simple number is expected)')
  conf.set_quoted('PROJECT_VERSION_FULL', meson.project_version(), description : 'Full project version')
 +conf.set('ENABLE_GSHADOW', 0)
++conf.set('HAVE_PRCTL_MM_MAP', 1)
 
  libsystemd_version = '0.39.0'
  libudev_version = '1.7.9'
