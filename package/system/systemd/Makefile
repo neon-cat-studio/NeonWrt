@@ -22,21 +22,15 @@ define Package/systemd
   CATEGORY:=Base system
   TITLE:=Systemd init system
   DEPENDS:=+libc +libcap +libxcrypt +kmod +mount-utils +fdisk +lsblk +blkid +logger
-  # 僅在 glibc 選項時顯示
-  ifeq ($(LIBC),glibc)
-  DEFAULT:=y
-  endif
 endef
 
 define Package/systemd/description
   systemd is a modern init system and system manager for Linux.
+  (Only Support for GLIBC, Musl not Support!)
 endef
 
 TARGET_CFLAGS += -O3 -fno-finite-math-only
 MESON_ARGS += \
-	-Dgshadow=false \
-    -Dc_args='-DENABLE_GSHADOW=0' \
-    -Dcpp_args='-DENABLE_GSHADOW=0'
 	-Ddefault-locale='C.UTF-8' \
 	-Ddefault-user-shell=/bin/sh \
 	-Dkexec-path=/usr/sbin/kexec \
