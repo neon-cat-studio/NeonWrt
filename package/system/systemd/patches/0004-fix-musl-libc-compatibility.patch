@@ -16,10 +16,12 @@
 
 --- a/src/basic/pidref.h
 +++ b/src/basic/pidref.h
-@@ -1,8 +1,10 @@
+@@ -1,10 +1,12 @@
  /* SPDX-License-Identifier: LGPL-2.1-or-later */
  #pragma once
  
+ #include "macro.h"
+
 +#include <signal.h> /* 添加 SIGKILL 和 siginfo_t 定義 */
 +
  /* An embeddable structure carrying a reference to a process. Supposed to be used when tracking processes continuously. */
