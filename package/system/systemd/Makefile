@@ -22,6 +22,10 @@ define Package/systemd
   CATEGORY:=Base system
   TITLE:=Systemd init system
   DEPENDS:=+libc +libcap +libxcrypt +kmod +mount-utils +fdisk +lsblk +blkid +logger
+  # 僅在 glibc 選項時顯示
+  ifeq ($(LIBC),glibc)
+  DEFAULT:=y
+  endif
 endef
 
 define Package/systemd/description
