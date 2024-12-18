@@ -1,14 +1,12 @@
 --- a/src/basic/missing_prctl.h	2024-10-08 23:42:30.000000000 +0800
 +++ a/src/basic/missing_prctl.h	2024-12-19 02:42:30.404342887 +0800
-@@ -2,6 +2,28 @@
+@@ -2,6 +2,26 @@
  #pragma once
  
  #include <linux/prctl.h>
-+#include <linux/prctl.h>
 +
-+#if defined(__linux__) && defined(PR_CAP_AMBIENT) && defined(__PRCTL_MM_MAP_DEFINED)
-+#undef __PRCTL_MM_MAP_DEFINED
-+#endif
++#if defined(__linux__) && !defined(HAVE_PRCTL_MM_MAP) && !defined(__PRCTL_MM_MAP_DEFINED)
++#define HAVE_PRCTL_MM_MAP
 +
 +#ifndef __PRCTL_MM_MAP_DEFINED
 +struct prctl_mm_map {
