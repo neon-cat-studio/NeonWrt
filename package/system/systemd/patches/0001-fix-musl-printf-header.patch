@@ -1,8 +1,14 @@
 --- a/src/basic/stdio-util.h
 +++ b/src/basic/stdio-util.h
-@@ -1,4 +1,4 @@
+@@ -1,6 +1,10 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */ 
+ #pragma once
+
 -#include <printf.h>
++#if __has_include(<printf.h>)
++#include <printf.h>
++#else
 +#include <stdio.h>
++#endif
  #include <stdarg.h>
- #include <stdbool.h>
- #include <unistd.h>
+ #include <sys/types.h>
