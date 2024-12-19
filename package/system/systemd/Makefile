@@ -90,20 +90,10 @@ MESON_ARGS += \
     -Ddefault-dnssec=allow-downgrade \
     -Ddefault-user-shell=/bin/sh
 
-define Package/systemd/Default
-  SECTION:=base
-  CATEGORY:=Base system
-  TITLE:=Systemd init system
-endef
-
-define Package/systemd/description/Default
-  systemd is a modern init system and system manager for Linux.
-  (Only Support for GLIBC, Musl not Support!)
-endef
-
-
 define Package/systemd
-$(call Package/systemd/Default)
+	SECTION:=base
+	CATEGORY:=Base system
+	TITLE:=Systemd init system
 	DEPENDS:=@USE_EGLIBC +@BUSYBOX_DEFAULT_SULOGIN +libcap +libmount +libkmod +libgcrypt +libseccomp +dbus +agetty \
 		+kmod-fs-autofs4 +@KERNEL_CGROUPS +@KERNEL_NET_CLS_CGROUP \
 		+@KERNEL_LXC_MISC +@KERNEL_DEVPTS_MULTIPLE_INSTANCES +@KERNEL_POSIX_MQUEUE \
@@ -113,8 +103,9 @@ $(call Package/systemd/Default)
 endef
 
 define Package/systemd/description
-$(call Package/systemd/description/Default)
-This package contains the core systemd /sbin/init daemon and supporting tools.
+  systemd is a modern init system and system manager for Linux.
+  (Only Support for GLIBC, Musl not Support!)
+  This package contains the core systemd /sbin/init daemon and supporting tools.
 endef
 
 define Package/systemd/conffiles
