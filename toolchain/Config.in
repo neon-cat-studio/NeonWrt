@@ -133,7 +133,7 @@ menuconfig EXTERNAL_TOOLCHAIN
 	choice TOOLCHAIN_LIBC_TYPE
 		prompt "Toolchain libc"  if DEVEL
 		depends on EXTERNAL_TOOLCHAIN && !NATIVE_TOOLCHAIN
-		default EXTERNAL_TOOLCHAIN_LIBC_USE_GLIBC
+		default EXTERNAL_TOOLCHAIN_LIBC_USE_MUSL
 		help
 		  Specify the libc type used by the external toolchain. The given value
 		  is passed as -m flag to all gcc and g++ invocations. This is mainly
@@ -272,8 +272,8 @@ comment "C Library"
 
 choice
 	prompt "C Library implementation" if TOOLCHAINOPTS
-	default LIBC_USE_GLIBC if arc
-	default LIBC_USE_MUSL
+	default LIBC_USE_GLIBC
+	default LIBC_USE_MUSL if !arc
 	help
 	  Select the C library implementation.
 
