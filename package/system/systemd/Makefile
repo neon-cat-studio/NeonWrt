@@ -84,11 +84,10 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
-    -Dshutdown=true \
-    -Dbus-proxyd=true \
+    -Ddefault-shutdown=enabled \
     -Dlogind=true \
-    -Dpam=true \
-    -Dseccomp=true \
+    -Dpam=enabled \
+    -Dseccomp=enabled \
     -Ddefault-dnssec=allow-downgrade \
     -Ddefault-user-shell=/bin/sh
 
