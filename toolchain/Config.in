@@ -273,7 +273,6 @@ comment "C Library"
 choice
 	prompt "C Library implementation" if TOOLCHAINOPTS
 	default LIBC_USE_GLIBC
-	default LIBC_USE_MUSL if !arc
 	help
 	  Select the C library implementation.
 
