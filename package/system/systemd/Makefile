@@ -135,10 +135,12 @@ define Package/systemd/install
 	$(INSTALL_DIR) $(1)/etc/systemd/user
 	$(INSTALL_DIR) $(1)/etc/network
 
+	# 確保 dbus-1 目錄存在
 	$(INSTALL_DIR) $(1)/etc/dbus-1/system.d
-	$(CP) \
-		$(PKG_INSTALL_DIR)/etc/dbus-1/system.d/org.freedesktop.systemd1.conf \
-		$(1)/etc/dbus-1/system.d
+	# 複製 org.freedesktop.systemd1.conf 到 dbus-1/system.d
+	$(INSTALL_DATA) \
+		$(PKG_BUILD_DIR)/src/core/org.freedesktop.systemd1.conf \
+		$(1)/etc/dbus-1/system.d/org.freedesktop.systemd1.conf
 
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) \
