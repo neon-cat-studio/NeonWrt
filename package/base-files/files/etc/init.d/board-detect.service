@@ -1,0 +1,11 @@
+# /etc/systemd/system/board-detect.service
+[Unit]
+Description=Board Detection Script
+ConditionPathExists=!/etc/board.json
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/board_detect
+
+[Install]
+WantedBy=multi-user.target

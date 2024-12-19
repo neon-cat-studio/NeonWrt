@@ -15,7 +15,7 @@ PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/meson.mk   # 改用 meson.mk
+include $(INCLUDE_DIR)/meson.mk
 
 define Package/systemd
   SECTION:=base
@@ -39,7 +39,7 @@ MESON_ARGS += \
 	-Dumount-path=/usr/bin/umount \
 	-Dsystem-uid-max=999 \
 	-Dsystem-gid-max=999 \
-	-Dsysvinit-path= \
+	-Dsysvinit-path=false \
 	-Dsplit-bin=true \
 	-Dtests=false \
 	-Dinstall-tests=false \
@@ -60,12 +60,15 @@ endef
 
 define Package/systemd/postinst
 #!/bin/sh
-echo "systemd installation completed."
+if [ -x /usr/bin/systemctl ]; then
+    systemctl daemon-reexec
+    echo "systemd successfully initialized."
+fi
 endef
 
 define Package/systemd/prerm
 #!/bin/sh
-echo "systemd removal completed."
+echo "Removing systemd..."
 endef
 
 $(eval $(call BuildPackage,systemd))
