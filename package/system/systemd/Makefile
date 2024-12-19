@@ -84,6 +84,8 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
+    -Dshutdown=true \
+    -Dbus-proxyd=true \
     -Dlogind=true \
     -Dpam=true \
     -Dseccomp=true \
