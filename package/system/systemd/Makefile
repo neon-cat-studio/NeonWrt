@@ -27,22 +27,16 @@ CONFIGURE_ARGS_FAST_BUILD = \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-manpages \
-	--disable-tests \
 	--without-python
 
 CONFIGURE_ARGS_EMBEDDED = \
 	--disable-backlight \
 	--disable-binfmt \
-	--disable-efi \
 	--disable-firstboot \
 	--disable-hibernate \
-	--disable-importd \
 	--disable-ldconfig \
-	--disable-logind \
-	--disable-machined \
 	--disable-microhttpd \
 	--disable-nls \
-	--disable-pam \
 	--disable-qrencode \
 	--disable-quotacheck \
 	--disable-vconsole \
@@ -52,6 +46,10 @@ CONFIGURE_ARGS += \
 	--prefix=/usr \
     --sysconfdir=/etc \
     --enable-dbus \
+	--enable-shutdown \
+	--enable-pam \
+	--enable-logind \
+	--enable-seccomp \
 	$(CONFIGURE_ARGS_FAST_BUILD) \
 	$(CONFIGURE_ARGS_EMBEDDED) \
 	--disable-apparmor \
@@ -60,7 +58,6 @@ CONFIGURE_ARGS += \
 	--disable-chkconfig \
 	--disable-ima \
 	--disable-selinux \
-	--disable-seccomp \
 	--disable-audit \
 	--disable-smack \
 	--disable-xz \
@@ -86,6 +83,13 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,tmpfiles,tmpfiles) \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
+MESON_ARGS += \
+    -Dlogind=true \
+    -Dpam=true \
+    -Dseccomp=true \
+    -Ddefault-dnssec=allow-downgrade \
+    -Ddefault-user-shell=/bin/sh
+	
 define Package/systemd/Default
   SECTION:=base
   CATEGORY:=Base system
