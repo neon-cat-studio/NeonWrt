@@ -43,7 +43,8 @@ MESON_ARGS += \
 	-Dsplit-bin=true \
 	-Dtests=false \
 	-Dinstall-tests=false \
-	-Ddefault-dnssec=allow-downgrade
+	-Ddefault-dnssec=allow-downgrade \
+	-Ddevtmpfs-mount=true
 
 define Package/systemd/install
 	$(INSTALL_DIR) $(1)/usr/lib/systemd
