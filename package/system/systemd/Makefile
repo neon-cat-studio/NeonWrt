@@ -50,7 +50,8 @@ CONFIGURE_ARGS_EMBEDDED = \
 
 CONFIGURE_ARGS += \
 	--prefix=/usr \
-	--sysconfdir=/etc \
+    --sysconfdir=/etc \
+    --enable-dbus \
 	$(CONFIGURE_ARGS_FAST_BUILD) \
 	$(CONFIGURE_ARGS_EMBEDDED) \
 	--disable-apparmor \
@@ -100,7 +101,7 @@ endef
 define Package/systemd
 $(call Package/systemd/Default)
 	DEPENDS:=@USE_EGLIBC +@BUSYBOX_DEFAULT_SULOGIN +libcap +libmount +libkmod +dbus +agetty \
-		+PACKAGE_kmod-fs-autofs4 +@KERNEL_CGROUPS +@KERNEL_NET_CLS_CGROUP \
+		+kmod-fs-autofs4 +@KERNEL_CGROUPS +@KERNEL_NET_CLS_CGROUP \
 		+@KERNEL_LXC_MISC +@KERNEL_DEVPTS_MULTIPLE_INSTANCES +@KERNEL_POSIX_MQUEUE \
 		+@KERNEL_NAMESPACES +@KERNEL_NET_NS \
 		+@KERNEL_DEVTMPFS +@KERNEL_FHANDLE +@KERNEL_FANOTIFY +@KERNEL_BLK_DEV_BSG
