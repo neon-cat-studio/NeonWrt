@@ -57,6 +57,10 @@ define Package/systemd/install
 	# 安裝 system.conf 配置檔案
 	$(INSTALL_DIR) $(1)/etc/systemd
 	$(INSTALL_CONF) ./files/systemd.conf $(1)/etc/systemd/system.conf
+
+	# 安裝 run.mount
+	$(INSTALL_DIR) $(1)/usr/lib/systemd/system
+	$(INSTALL_CONF) ./files/run.mount $(1)/usr/lib/systemd/system/run.mount
 endef
 
 define Package/systemd/postinst
