@@ -8,25 +8,22 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dbus
-PKG_VERSION:=1.14.10
-PKG_RELEASE:=1
+PKG_VERSION:=1.13.18
+PKG_RELEASE:=12
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://dbus.freedesktop.org/releases/dbus
-PKG_HASH:=skip
+PKG_HASH:=8078f5c25e34ab907ce06905d969dc8ef0ccbec367e1e1707c7ecf8460f4254e
 
 PKG_MAINTAINER:=
 PKG_LICENSE:=AFL-2.1
 PKG_CPE_ID:=cpe:/a:freedesktop:dbus
 
 PKG_BUILD_PARALLEL:=1
-PKG_FIXUP:=autoreconf
 PKG_INSTALL:=1
 
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_DBUS_VERBOSE
-
-PKG_BUILD_DEPENDS:=expat
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -116,16 +113,6 @@ ifeq ($(CONFIG_DBUS_VERBOSE),y)
   CONFIGURE_ARGS += --enable-verbose-mode
 endif
 
-ifeq ($(CONFIG_PACKAGE_libselinux),y)
-CONFIGURE_ARGS += --enable-selinux
-endif
-
-ifeq ($(CONFIG_PACKAGE_systemd),y)
-CONFIGURE_ARGS += \
-	--enable-systemd \
-	--with-systemdsystemunitdir=/usr/lib/systemd/system
-endif
-
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/dbus-1.0 $(1)/usr/include/
@@ -156,15 +143,10 @@ define Package/dbus/install
 	$(INSTALL_BIN) ./files/dbus-launch $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/dbus-daemon-launch-helper $(1)/usr/lib/
-	$(INSTALL_DIR) $(1)/etc/dbus-1
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/bus/session.conf $(1)/etc/dbus-1/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/bus/system.conf $(1)/etc/dbus-1/
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/dbus.init $(1)/etc/init.d/dbus
 	$(INSTALL_DIR) $(1)/usr/share/dbus-1
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/dbus-1 $(1)/usr/share/
-	$(INSTALL_DIR) $(1)/var/lib/dbus
-	ln -sf /etc/machine-id $(1)/var/lib/dbus/machine-id
 endef
 
 define Package/dbus-utils/install
