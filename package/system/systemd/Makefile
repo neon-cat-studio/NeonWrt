@@ -91,21 +91,15 @@ MESON_ARGS += \
     -Ddefault-user-shell=/bin/sh
 
 define Package/systemd
-	SECTION:=base
-	CATEGORY:=Base system
-	TITLE:=Systemd init system
-	DEPENDS:=@USE_EGLIBC +@BUSYBOX_DEFAULT_SULOGIN +libcap +libmount +libkmod +libgcrypt +libseccomp +dbus +agetty \
-		+kmod-fs-autofs4 +@KERNEL_CGROUPS +@KERNEL_NET_CLS_CGROUP \
-		+@KERNEL_LXC_MISC +@KERNEL_DEVPTS_MULTIPLE_INSTANCES +@KERNEL_POSIX_MQUEUE \
-		+@KERNEL_NAMESPACES +@KERNEL_NET_NS \
-		+@KERNEL_DEVTMPFS +@KERNEL_FHANDLE +@KERNEL_FANOTIFY +@KERNEL_BLK_DEV_BSG
-	MENU:=1
+  SECTION:=base
+  CATEGORY:=Base system
+  TITLE:=Systemd init system
+  DEPENDS:=+libc +libcap +libselinux +libgcrypt +kmod +mount-utils +fdisk +lsblk +blkid +logger +dbus +agetty
 endef
 
 define Package/systemd/description
   systemd is a modern init system and system manager for Linux.
   (Only Support for GLIBC, Musl not Support!)
-  This package contains the core systemd /sbin/init daemon and supporting tools.
 endef
 
 define Package/systemd/conffiles
