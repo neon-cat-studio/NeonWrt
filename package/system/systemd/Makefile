@@ -88,7 +88,9 @@ MESON_ARGS += \
     -Dpam=enabled \
     -Dseccomp=enabled \
     -Ddefault-dnssec=allow-downgrade \
-    -Ddefault-user-shell=/bin/sh
+    -Ddefault-user-shell=/bin/sh \
+    -Ddefault-shutdown=true \
+    -Dinstall-tests=false
 
 define Package/systemd
   SECTION:=base
@@ -136,10 +138,6 @@ define Package/systemd/install
 		$(addprefix $(PKG_INSTALL_DIR)/usr/bin/, \
 			$(SYSTEMD_BIN)) \
 		$(1)/usr/bin
-
-	ln -sf \
-		/usr/lib/systemd/systemd-bus-proxyd \
-		$(1)/usr/bin/systemd-stdio-bridge
 
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) \
