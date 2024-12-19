@@ -89,7 +89,7 @@ MESON_ARGS += \
     -Dseccomp=true \
     -Ddefault-dnssec=allow-downgrade \
     -Ddefault-user-shell=/bin/sh
-	
+
 define Package/systemd/Default
   SECTION:=base
   CATEGORY:=Base system
@@ -105,7 +105,7 @@ endef
 define Package/systemd
 $(call Package/systemd/Default)
 	DEPENDS:=@USE_EGLIBC +@BUSYBOX_DEFAULT_SULOGIN +libcap +libmount +libkmod +dbus +agetty \
-		+kmod-fs-autofs4 +@KERNEL_CGROUPS +@KERNEL_NET_CLS_CGROUP \
+		+kmod-fs-autofs4 +libgcrypt +libseccomp +@KERNEL_CGROUPS +@KERNEL_NET_CLS_CGROUP \
 		+@KERNEL_LXC_MISC +@KERNEL_DEVPTS_MULTIPLE_INSTANCES +@KERNEL_POSIX_MQUEUE \
 		+@KERNEL_NAMESPACES +@KERNEL_NET_NS \
 		+@KERNEL_DEVTMPFS +@KERNEL_FHANDLE +@KERNEL_FANOTIFY +@KERNEL_BLK_DEV_BSG
