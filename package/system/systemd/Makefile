@@ -84,7 +84,6 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
-    -Ddefault-shutdown=enabled \
     -Dlogind=true \
     -Dpam=enabled \
     -Dseccomp=enabled \
