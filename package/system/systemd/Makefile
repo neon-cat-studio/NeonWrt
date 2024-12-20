@@ -84,9 +84,11 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
+    -Dshared=true \
     -Dlogind=true \
     -Dpam=enabled \
     -Dseccomp=enabled \
+    -Ddefault-library=shared \
     -Ddefault-dnssec=allow-downgrade \
     -Ddefault-user-shell=/bin/sh \
     -Dinstall-tests=false
@@ -139,9 +141,7 @@ define Package/systemd/install
 		$(1)/usr/bin
 
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) \
-		$(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* \
-		$(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* $(1)/usr/lib
 
 	$(INSTALL_DIR) $(1)/etc/sysctl.d
 	$(INSTALL_DIR) $(1)/usr/lib/sysctl.d
