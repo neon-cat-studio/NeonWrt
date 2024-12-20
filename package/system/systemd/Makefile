@@ -32,12 +32,12 @@ CONFIGURE_ARGS += \
 	--enable-pam \
 	--enable-logind \
 	--enable-seccomp \
-	--enable-apparmor \
+	--disable-apparmor \
 	--enable-introspection \
 	--enable-gudev \
 	--enable-chkconfig \
 	--enable-ima \
-	--enable-selinux \
+	--disable-selinux \
 	--enable-audit \
 	--enable-smack \
 	--enable-xz \
@@ -45,7 +45,7 @@ CONFIGURE_ARGS += \
 	--enable-gcrypt \
 	--enable-myhostname \
 	--enable-libcryptsetup \
-	--enable-polkit \
+	--disable-polkit \
 	--enable-elfutils \
 	--enable-gnutls \
 	--enable-libcurl \
