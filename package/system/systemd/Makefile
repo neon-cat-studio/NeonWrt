@@ -212,7 +212,9 @@ define Package/systemd/install
 		$(1)/sbin/init
 
 	$(CP) ./files/* $(1)/
-	$(VERSION_SED) $(1)/etc/os-release
+	
+	$(INSTALL_DIR) $(1)/etc
+	$(INSTALL_DATA) ./files/etc/os-release.txt $(1)/etc/os-release
 
 	$(INSTALL_DIR) $(1)/run
 	ln -sf /run $(1)/var/run
