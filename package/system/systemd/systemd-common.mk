@@ -19,14 +19,10 @@ SYSTEMD_BIN = \
 
 SYSTEMD_LIB = \
 	systemd \
-	systemd-ac-power \
-	systemd-activate \
-	systemd-bus-proxyd \
 	systemd-cgroups-agent \
 	systemd-fsck \
 	systemd-initctl \
 	systemd-journald \
-	systemd-machine-id-commit \
 	systemd-remount-fs \
 	systemd-reply-password \
 	systemd-shutdown \
@@ -141,7 +137,6 @@ SYSTEMD_SYSTEM_SERVICES = \
 	systemd-journal-catalog-update.service \
 	systemd-journal-flush.service \
 	systemd-kexec.service \
-	systemd-machine-id-commit.service \
 	systemd-poweroff.service \
 	systemd-reboot.service \
 	systemd-remount-fs.service \
