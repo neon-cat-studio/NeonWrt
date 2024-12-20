@@ -133,6 +133,10 @@ define Package/systemd/install
 		$(PKG_BUILD_DIR)/src/core/org.freedesktop.systemd1.conf \
 		$(1)/etc/dbus-1/system.d/org.freedesktop.systemd1.conf
 
+	$(INSTALL_DIR) $(1)/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* $(1)/lib
+	ln -sf libsystemd.so.0 $(1)/lib/libsystemd.so
+
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) \
 		$(addprefix $(PKG_INSTALL_DIR)/usr/bin/, \
@@ -376,10 +380,6 @@ endef
 
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* $(1)/lib
-	ln -sf libsystemd.so.0 $(1)/lib/libsystemd.so
-
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libudev.so* $(1)/usr/lib
 #	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgudev-1.0.so* $(1)/usr/lib
