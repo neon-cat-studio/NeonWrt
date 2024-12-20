@@ -20,6 +20,9 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
 
 TARGET_CFLAGS += --std=gnu99
+TARGET_CFLAGS += -DLOG_LEVEL=LOG_DEBUG
+
+KERNEL_CMDLINE += "systemd.log_level=debug systemd.log_target=console"
 
 SYSTEMD_DISABLE_PKG = $(if $(CONFIG_PACKAGE_systemd-$(1)),,--disable-$(2))
 
@@ -85,6 +88,7 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
+	-Ddefault-log-level=debug \
 	-Dlibdir=/usr/lib \
 	-Dlogind=true \
 	-Dpam=enabled \
@@ -118,6 +122,9 @@ define Package/systemd/install
 	$(CP) \
 		$(PKG_INSTALL_DIR)/etc/systemd/{journald,system,user}.conf \
 		$(1)/etc/systemd
+    $(INSTALL_DIR) $(1)/etc/systemd
+    echo "LogLevel=debug" > $(1)/etc/systemd/system.conf
+    echo "ForwardToConsole=yes" >> $(1)/etc/systemd/journald.conf
 
 	$(INSTALL_DIR) $(1)/etc/systemd/system/multi-user.target.wants
 	ln -sf \
