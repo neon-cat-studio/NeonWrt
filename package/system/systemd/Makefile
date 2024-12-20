@@ -48,7 +48,7 @@ CONFIGURE_ARGS += \
 	--enable-polkit \
 	--enable-elfutils \
 	--enable-gnutls \
-	--enable-libcurl
+	--enable-libcurl \
 
 MESON_ARGS += \
 	-Dlibdir=/usr/lib \
@@ -64,7 +64,7 @@ define Package/systemd
   SECTION:=base
   CATEGORY:=Base system
   TITLE:=Systemd init system
-  DEPENDS:=+libc +libcap +libselinux +libkmod +block-mount +fstools +libgcrypt +libseccomp +libpam +mount-utils +fdisk +lsblk +blkid +logger +dbus +agetty
+  DEPENDS:=+libc +libcap +libapparmor +libselinux +libkmod +block-mount +fstools +libgcrypt +libseccomp +libpam +mount-utils +fdisk +lsblk +blkid +logger +dbus +agetty
 endef
 
 define Package/systemd/description
