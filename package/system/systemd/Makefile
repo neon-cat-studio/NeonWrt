@@ -11,7 +11,7 @@ PKG_HASH:=skip
 PKG_LICENSE:=LGPL-2.1+ GPL-2.0+
 PKG_LICENSE_FILES:=LICENSE.GPL2 LICENSE.LGPL2.1
 
-PKG_BUILD_DEPENDS:=intltool/host gperf/host jinja2/host
+PKG_BUILD_DEPENDS:=intltool/host gperf/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
@@ -23,6 +23,25 @@ TARGET_CFLAGS += --std=gnu99
 
 SYSTEMD_DISABLE_PKG = $(if $(CONFIG_PACKAGE_systemd-$(1)),,--disable-$(2))
 
+CONFIGURE_ARGS_FAST_BUILD = \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-manpages \
+	--without-python
+
+CONFIGURE_ARGS_EMBEDDED = \
+	--disable-backlight \
+	--disable-binfmt \
+	--disable-firstboot \
+	--disable-hibernate \
+	--disable-ldconfig \
+	--disable-microhttpd \
+	--disable-nls \
+	--disable-qrencode \
+	--disable-quotacheck \
+	--disable-vconsole \
+	--disable-xkbcommon
+
 CONFIGURE_ARGS += \
 	--prefix=/usr \
 	--sysconfdir=/etc \
@@ -32,12 +51,12 @@ CONFIGURE_ARGS += \
 	--enable-pam \
 	--enable-logind \
 	--enable-seccomp \
-	--disable-apparmor \
+	--enable-apparmor \
 	--enable-introspection \
 	--enable-gudev \
 	--enable-chkconfig \
 	--enable-ima \
-	--disable-selinux \
+	--enable-selinux \
 	--enable-audit \
 	--enable-smack \
 	--enable-xz \
@@ -45,10 +64,23 @@ CONFIGURE_ARGS += \
 	--enable-gcrypt \
 	--enable-myhostname \
 	--enable-libcryptsetup \
-	--disable-polkit \
+	--enable-polkit \
 	--enable-elfutils \
 	--enable-gnutls \
 	--enable-libcurl \
+	$(call SYSTEMD_DISABLE_PKG,bootchart,bootchart) \
+	$(call SYSTEMD_DISABLE_PKG,coredump,coredump) \
+	$(call SYSTEMD_DISABLE_PKG,hostnamed,hostnamed) \
+	$(call SYSTEMD_DISABLE_PKG,localed,localed) \
+	$(call SYSTEMD_DISABLE_PKG,modules-load,kmod) \
+	$(call SYSTEMD_DISABLE_PKG,networkd,networkd) \
+	$(call SYSTEMD_DISABLE_PKG,random-seed,randomseed) \
+	$(call SYSTEMD_DISABLE_PKG,resolved,resolved) \
+	$(call SYSTEMD_DISABLE_PKG,rfkill,rfkill) \
+	$(call SYSTEMD_DISABLE_PKG,timedated,timedated) \
+	$(call SYSTEMD_DISABLE_PKG,timesyncd,timesyncd) \
+	$(call SYSTEMD_DISABLE_PKG,tmpfiles,tmpfiles) \
+	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
 	-Dlibdir=/usr/lib \
@@ -64,7 +96,7 @@ define Package/systemd
   SECTION:=base
   CATEGORY:=Base system
   TITLE:=Systemd init system
-  DEPENDS:=+libc +libcap +libapparmor +libselinux +libkmod +block-mount +fstools +libgcrypt +libseccomp +libpam +mount-utils +fdisk +lsblk +blkid +logger +dbus +agetty
+  DEPENDS:=+libc +libcap +libselinux +libkmod +block-mount +fstools +libgcrypt +libseccomp +libpam +mount-utils +fdisk +lsblk +blkid +logger +dbus +agetty
 endef
 
 define Package/systemd/description
