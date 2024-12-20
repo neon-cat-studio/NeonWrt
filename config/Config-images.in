@@ -317,5 +317,6 @@ menu "Target Images"
 		  Do not symlink /var to /tmp, so that its content will persist
 		  across reboots. When enabled, /var/run will still be linked
 		  to /tmp/run.
+		default y
 
 endmenu
