@@ -220,8 +220,6 @@ define Package/systemd/install
 	$(INSTALL_DATA) ./files/etc/os-release.txt $(1)/etc/os-release
 
 	$(INSTALL_DIR) $(1)/run
-	rm -f $(1)/var;
-	$(INSTALL_DIR) $(1)/var
 	ln -sf /run $(1)/var/run
 
 	# FIXME: make DEFAULT_TARGET option
