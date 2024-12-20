@@ -1,0 +1,14 @@
+[Unit]
+Description=Getty on tty1
+After=systemd-user-sessions.service plymouth-quit-wait.service
+After=rc-local.service
+
+[Service]
+ExecStart=-/sbin/agetty --noclear %I $TERM
+Type=idle
+Restart=always
+RestartSec=0
+
+[Install]
+Alias=getty.target.wants/getty@tty1.service
+WantedBy=multi-user.target
