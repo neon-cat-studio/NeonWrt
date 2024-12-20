@@ -141,6 +141,10 @@ define Package/systemd/install
 
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* $(1)/usr/lib
+	$(INSTALL_BIN) \
+		$(PKG_INSTALL_DIR)/usr/lib/systemd/libsystemd-core-*.so $(1)/usr/lib/
+	$(INSTALL_BIN) \
+		$(PKG_INSTALL_DIR)/usr/lib/systemd/libsystemd-shared-*.so $(1)/usr/lib/
 
 	$(INSTALL_DIR) $(1)/etc/sysctl.d
 	$(INSTALL_DIR) $(1)/usr/lib/sysctl.d
@@ -216,11 +220,7 @@ define Package/systemd/install
 	$(INSTALL_DATA) ./files/etc/os-release.txt $(1)/etc/os-release
 
 	$(INSTALL_DIR) $(1)/run
-	# 刪除非目錄的 /var
-	if [ -e $(1)/var ] && [ ! -d $(1)/var ]; then \
-		rm -f $(1)/var; \
-	fi
-	# 確保 /var 是目錄
+	rm -f $(1)/var;
 	$(INSTALL_DIR) $(1)/var
 	ln -sf /run $(1)/var/run
 
