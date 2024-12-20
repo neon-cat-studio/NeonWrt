@@ -88,7 +88,6 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
-	-Ddefault-log-level=debug \
 	-Dlibdir=/usr/lib \
 	-Dlogind=true \
 	-Dpam=enabled \
