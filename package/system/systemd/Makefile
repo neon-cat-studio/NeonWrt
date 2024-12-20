@@ -242,8 +242,8 @@ define Package/systemd/install
 
 	# 安裝 systemd mount 單元文件
 	$(INSTALL_DIR) $(1)/usr/lib/systemd/system
-	$(INSTALL_DATA) ./files/usr/lib/systemd/system/overlay.mount $(1)/usr/lib/systemd/system/overlay.mount
-	$(INSTALL_DATA) ./files/usr/lib/systemd/system/sysroot.mount $(1)/usr/lib/systemd/system/sysroot.mount
+	$(INSTALL_DATA) ./files/etc/systemd/system/overlay.mount $(1)/usr/lib/systemd/system/overlay.mount
+	$(INSTALL_DATA) ./files/etc/systemd/system/sysroot.mount $(1)/usr/lib/systemd/system/sysroot.mount
 
 	# 建立 symlink，確保 overlay.mount 和 sysroot.mount 啟動
 	$(INSTALL_DIR) $(1)/etc/systemd/system/initrd-root-fs.target.wants
