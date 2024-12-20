@@ -134,6 +134,10 @@ define Package/systemd/install
 	$(INSTALL_DATA) \
 		$(PKG_BUILD_DIR)/src/core/org.freedesktop.systemd1.conf \
 		$(1)/etc/dbus-1/system.d/org.freedesktop.systemd1.conf
+		
+	$(INSTALL_DIR) $(1)/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* $(1)/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libkmod.so* $(1)/lib
 
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) \
