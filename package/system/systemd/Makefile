@@ -84,8 +84,6 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
-    -Ddefault-library=shared \
-    -Dsplit-usr=false \
     -Dlogind=true \
     -Dpam=enabled \
     -Dseccomp=enabled \
