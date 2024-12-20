@@ -85,7 +85,6 @@ CONFIGURE_ARGS += \
 
 MESON_ARGS += \
 	-Dlogind=true \
-	-Dshared=true \
 	-Dpam=enabled \
 	-Dseccomp=enabled \
 	-Dstatic-libsystemd=false \
