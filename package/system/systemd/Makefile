@@ -45,6 +45,7 @@ CONFIGURE_ARGS_EMBEDDED = \
 CONFIGURE_ARGS += \
 	--prefix=/usr \
 	--sysconfdir=/etc \
+	-Dc_link_args="-Wl,--disable-new-dtags -Wl,-rpath=/usr/lib" \
 	--enable-dbus \
 	--enable-shutdown \
 	--enable-pam \
@@ -84,6 +85,7 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
+	-Dlibdir=/usr/lib \
 	-Dlogind=true \
 	-Dpam=enabled \
 	-Dseccomp=enabled \
@@ -133,10 +135,6 @@ define Package/systemd/install
 		$(PKG_BUILD_DIR)/src/core/org.freedesktop.systemd1.conf \
 		$(1)/etc/dbus-1/system.d/org.freedesktop.systemd1.conf
 
-	$(INSTALL_DIR) $(1)/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* $(1)/lib
-	ln -sf libsystemd.so.0 $(1)/lib/libsystemd.so
-
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) \
 		$(addprefix $(PKG_INSTALL_DIR)/usr/bin/, \
@@ -145,10 +143,13 @@ define Package/systemd/install
 
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* $(1)/usr/lib
+	ln -sf libsystemd.so.0 $(1)/usr/lib/libsystemd.so
 	$(INSTALL_BIN) \
 		$(PKG_INSTALL_DIR)/usr/lib/systemd/libsystemd-core-*.so $(1)/usr/lib/
+	ln -s libsystemd-core-256.so $(1)/usr/lib/libsystemd-core.so
 	$(INSTALL_BIN) \
 		$(PKG_INSTALL_DIR)/usr/lib/systemd/libsystemd-shared-*.so $(1)/usr/lib/
+	ln -s libsystemd-shared-256.so $(1)/usr/lib/libsystemd-shared.so
 
 	$(INSTALL_DIR) $(1)/etc/sysctl.d
 	$(INSTALL_DIR) $(1)/usr/lib/sysctl.d
