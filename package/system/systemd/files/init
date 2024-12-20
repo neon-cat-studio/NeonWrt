@@ -1,20 +1,14 @@
 #!/bin/sh
-# 檢查 OverlayFS 是否可用
-if ! grep -q "overlay" /proc/filesystems; then
-    echo "Error: OverlayFS is not supported by the kernel!"
-    exit 1
-fi
 
-# 初始化 OverlayFS 目錄
+# 創建必要的目錄
 mkdir -p /overlay/upper /overlay/work
 mkdir -p /sysroot
 
 # 掛載 OverlayFS
 mount -t overlay overlay -o lowerdir=/,upperdir=/overlay/upper,workdir=/overlay/work /sysroot
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to mount OverlayFS."
-    exit 1
-fi
+
+# 掛載其他必要目錄
+mount --bind /usr /sysroot/usr
 
 # 切換根檔案系統
 exec /usr/bin/systemctl switch-root /sysroot /init

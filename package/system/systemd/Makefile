@@ -232,6 +232,8 @@ define Package/systemd/install
 	$(INSTALL_DIR) $(1)/run
 	ln -sf /run $(1)/var/run
 
+	$(INSTALL_DIR) $(1)/sys/fs/cgroup
+
 	# FIXME: make DEFAULT_TARGET option
 	ln -sf \
 		/usr/lib/systemd/system/initrd.target \
