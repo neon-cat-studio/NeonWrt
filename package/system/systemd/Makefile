@@ -217,12 +217,12 @@ define Package/systemd/install
 	$(INSTALL_DATA) ./files/etc/os-release.txt $(1)/etc/os-release
 
 	$(INSTALL_DIR) $(1)/run
-	if [ -L $(1)/var ]; then \
+	# 刪除非目錄的 /var
+	if [ -e $(1)/var ] && [ ! -d $(1)/var ]; then \
 		rm -f $(1)/var; \
 	fi
-	if [ ! -d $(1)/var ]; then \
-		$(INSTALL_DIR) $(1)/var; \
-	fi
+	# 確保 /var 是目錄
+	$(INSTALL_DIR) $(1)/var
 	ln -sf /run $(1)/var/run
 
 	# FIXME: make DEFAULT_TARGET option
