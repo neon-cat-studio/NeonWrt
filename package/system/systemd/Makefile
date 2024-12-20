@@ -44,8 +44,8 @@ CONFIGURE_ARGS_EMBEDDED = \
 
 CONFIGURE_ARGS += \
 	--prefix=/usr \
-    --sysconfdir=/etc \
-    --enable-dbus \
+	--sysconfdir=/etc \
+	--enable-dbus \
 	--enable-shutdown \
 	--enable-pam \
 	--enable-logind \
@@ -84,13 +84,13 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
-    -Dlogind=true \
-    -Dpam=enabled \
-    -Dseccomp=enabled \
-    -Dstatic-libsystemd=false \
-    -Ddefault-dnssec=allow-downgrade \
-    -Ddefault-user-shell=/bin/sh \
-    -Dinstall-tests=false
+	-Dlogind=true \
+	-Dpam=enabled \
+	-Dseccomp=enabled \
+	-Dstatic-libsystemd=false \
+	-Ddefault-dnssec=allow-downgrade \
+	-Ddefault-user-shell=/bin/sh \
+	-Dinstall-tests=false
 
 define Package/systemd
   SECTION:=base
@@ -232,8 +232,8 @@ define Package/systemd/install
 	touch $(1)/etc/initrd-release
 	$(INSTALL_DIR) $(1)/sysroot
 
-    # 安裝自定義 init 腳本
-    $(INSTALL_BIN) ./files/init $(1)/init
+	# 安裝自定義 init 腳本
+	$(INSTALL_BIN) ./files/init $(1)/init
 
 	# 確保 overlay 目錄存在
 	$(INSTALL_DIR) $(1)/overlay
@@ -241,9 +241,9 @@ define Package/systemd/install
 	mkdir -p $(1)/overlay/etc_upper $(1)/overlay/etc_work
 
 	# 安裝 systemd mount 單元文件
-    $(INSTALL_DIR) $(1)/usr/lib/systemd/system
-    $(INSTALL_DATA) ./files/usr/lib/systemd/system/overlay.mount $(1)/usr/lib/systemd/system/overlay.mount
-    $(INSTALL_DATA) ./files/usr/lib/systemd/system/sysroot.mount $(1)/usr/lib/systemd/system/sysroot.mount
+	$(INSTALL_DIR) $(1)/usr/lib/systemd/system
+	$(INSTALL_DATA) ./files/usr/lib/systemd/system/overlay.mount $(1)/usr/lib/systemd/system/overlay.mount
+	$(INSTALL_DATA) ./files/usr/lib/systemd/system/sysroot.mount $(1)/usr/lib/systemd/system/sysroot.mount
 
 	# 建立 symlink，確保 overlay.mount 和 sysroot.mount 啟動
 	$(INSTALL_DIR) $(1)/etc/systemd/system/initrd-root-fs.target.wants
@@ -392,9 +392,9 @@ endef
 
 define SystemdBuildLib
   define Package/systemd-$(1)
-    $(call Package/systemd/Default)
-    TITLE:=systemd $(2)
-    DEPENDS+= systemd $(3)
+	$(call Package/systemd/Default)
+	TITLE:=systemd $(2)
+	DEPENDS+= systemd $(3)
   endef
 
   define Package/systemd-$(1)/description
