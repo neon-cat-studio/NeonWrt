@@ -51,7 +51,6 @@ CONFIGURE_ARGS += \
 	--enable-libcurl
 
 MESON_ARGS += \
-	-Dexecutor=true \
 	-Dlibdir=/usr/lib \
 	-Dlogind=true \
 	-Dpam=enabled \
