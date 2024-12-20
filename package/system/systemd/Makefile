@@ -122,9 +122,9 @@ define Package/systemd/install
 	$(CP) \
 		$(PKG_INSTALL_DIR)/etc/systemd/{journald,system,user}.conf \
 		$(1)/etc/systemd
-    $(INSTALL_DIR) $(1)/etc/systemd
-    echo "LogLevel=debug" > $(1)/etc/systemd/system.conf
-    echo "ForwardToConsole=yes" >> $(1)/etc/systemd/journald.conf
+	$(INSTALL_DIR) $(1)/etc/systemd
+	echo "LogLevel=debug" > $(1)/etc/systemd/system.conf
+	echo "ForwardToConsole=yes" >> $(1)/etc/systemd/journald.conf
 
 	$(INSTALL_DIR) $(1)/etc/systemd/system/multi-user.target.wants
 	ln -sf \
