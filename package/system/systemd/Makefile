@@ -85,6 +85,7 @@ CONFIGURE_ARGS += \
 
 MESON_ARGS += \
 	-Dlogind=true \
+	-Dshared=true \
 	-Dpam=enabled \
 	-Dseccomp=enabled \
 	-Dstatic-libsystemd=false \
@@ -376,6 +377,10 @@ endef
 
 
 define Build/InstallDev
+	$(INSTALL_DIR) $(1)/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* $(1)/lib
+	ln -sf libsystemd.so.0 $(1)/lib/libsystemd.so
+
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libudev.so* $(1)/usr/lib
 #	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgudev-1.0.so* $(1)/usr/lib
