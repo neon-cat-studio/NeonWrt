@@ -89,7 +89,6 @@ MESON_ARGS += \
     -Dseccomp=enabled \
     -Ddefault-dnssec=allow-downgrade \
     -Ddefault-user-shell=/bin/sh \
-    -Ddefault-shutdown=true \
     -Dinstall-tests=false
 
 define Package/systemd
