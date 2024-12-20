@@ -10,6 +10,7 @@ SYSTEMD_BIN = \
 	systemd-delta \
 	systemd-detect-virt \
 	systemd-escape \
+	systemd-executor \
 	systemd-machine-id-setup \
 	systemd-notify \
 	systemd-path \
@@ -20,6 +21,7 @@ SYSTEMD_BIN = \
 SYSTEMD_LIB = \
 	systemd \
 	systemd-cgroups-agent \
+	systemd-executor \
 	systemd-fsck \
 	systemd-initctl \
 	systemd-journald \

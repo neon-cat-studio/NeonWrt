@@ -20,30 +20,8 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
 
 TARGET_CFLAGS += --std=gnu99
-TARGET_CFLAGS += -DLOG_LEVEL=LOG_DEBUG
-
-KERNEL_CMDLINE += "systemd.log_level=debug systemd.log_target=console"
 
 SYSTEMD_DISABLE_PKG = $(if $(CONFIG_PACKAGE_systemd-$(1)),,--disable-$(2))
-
-CONFIGURE_ARGS_FAST_BUILD = \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-manpages \
-	--without-python
-
-CONFIGURE_ARGS_EMBEDDED = \
-	--disable-backlight \
-	--disable-binfmt \
-	--disable-firstboot \
-	--disable-hibernate \
-	--disable-ldconfig \
-	--disable-microhttpd \
-	--disable-nls \
-	--disable-qrencode \
-	--disable-quotacheck \
-	--disable-vconsole \
-	--disable-xkbcommon
 
 CONFIGURE_ARGS += \
 	--prefix=/usr \
@@ -54,25 +32,23 @@ CONFIGURE_ARGS += \
 	--enable-pam \
 	--enable-logind \
 	--enable-seccomp \
-	$(CONFIGURE_ARGS_FAST_BUILD) \
-	$(CONFIGURE_ARGS_EMBEDDED) \
-	--disable-apparmor \
-	--disable-introspection \
-	--disable-gudev \
-	--disable-chkconfig \
-	--disable-ima \
-	--disable-selinux \
-	--disable-audit \
-	--disable-smack \
-	--disable-xz \
-	--disable-acl \
-	--disable-gcrypt \
-	--disable-myhostname \
-	--disable-libcryptsetup \
-	--disable-polkit \
-	--disable-elfutils \
-	--disable-gnutls \
-	--disable-libcurl \
+	--enable-apparmor \
+	--enable-introspection \
+	--enable-gudev \
+	--enable-chkconfig \
+	--enable-ima \
+	--enable-selinux \
+	--enable-audit \
+	--enable-smack \
+	--enable-xz \
+	--enable-acl \
+	--enable-gcrypt \
+	--enable-myhostname \
+	--enable-libcryptsetup \
+	--enable-polkit \
+	--enable-elfutils \
+	--enable-gnutls \
+	--enable-libcurl
 	$(call SYSTEMD_DISABLE_PKG,bootchart,bootchart) \
 	$(call SYSTEMD_DISABLE_PKG,coredump,coredump) \
 	$(call SYSTEMD_DISABLE_PKG,hostnamed,hostnamed) \
