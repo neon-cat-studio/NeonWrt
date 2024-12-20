@@ -84,12 +84,10 @@ CONFIGURE_ARGS += \
 	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
-    -Dshared=true \
     -Dlogind=true \
     -Dpam=enabled \
     -Dseccomp=enabled \
     -Dstatic-libsystemd=false \
-    -Dsplit-usr=true \
     -Ddefault-dnssec=allow-downgrade \
     -Ddefault-user-shell=/bin/sh \
     -Dinstall-tests=false
