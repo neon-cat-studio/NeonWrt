@@ -26,7 +26,6 @@ SYSTEMD_LIB = \
 	systemd-remount-fs \
 	systemd-reply-password \
 	systemd-shutdown \
-	systemd-shutdownd \
 	systemd-sleep \
 	systemd-socket-proxyd \
 	systemd-sysctl \
@@ -104,8 +103,7 @@ SYSTEMD_SYSTEM_SOCKETS = \
 	systemd-initctl.socket \
 	systemd-journald.socket \
 	systemd-journald-audit.socket \
-	systemd-journald-dev-log.socket \
-	systemd-shutdownd.socket
+	systemd-journald-dev-log.socket
 
 SYSTEMD_SYSTEM_PATHS = \
 	systemd-ask-password-console.path \
@@ -140,7 +138,6 @@ SYSTEMD_SYSTEM_SERVICES = \
 	systemd-poweroff.service \
 	systemd-reboot.service \
 	systemd-remount-fs.service \
-	systemd-shutdownd.service \
 	systemd-suspend.service \
 	systemd-sysctl.service \
 	systemd-sysusers.service \
