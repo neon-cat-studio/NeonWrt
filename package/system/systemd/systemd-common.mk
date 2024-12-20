@@ -94,9 +94,7 @@ SYSTEMD_SYSTEM_TARGETS = \
 	time-sync.target \
 	umount.target
 
-SYSTEMD_SYSTEM_SLICES = \
-	-.slice \
-	system.slice
+SYSTEMD_SYSTEM_SLICES = 
 
 SYSTEMD_SYSTEM_SOCKETS = \
 	syslog.socket \
@@ -112,16 +110,13 @@ SYSTEMD_SYSTEM_PATHS = \
 SYSTEMD_SYSTEM_SERVICES = \
 	autovt@.service \
 	console-getty.service \
-	console-shell.service \
 	container-getty@.service \
 	debug-shell.service \
 	emergency.service \
 	getty@.service \
-	halt-local.service \
 	initrd-cleanup.service \
 	initrd-parse-etc.service \
 	initrd-switch-root.service \
-	quotaon.service \
 	rc-local.service \
 	rescue.service \
 	serial-getty@.service \
