@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# 初始化 OverlayFS 目錄
+mkdir -p /overlay/upper /overlay/work
+mkdir -p /sysroot
+
+# 掛載 OverlayFS
+mount -t overlay overlay -o lowerdir=/,upperdir=/overlay/upper,workdir=/overlay/work /sysroot
+
+# 切換根檔案系統
+exec /usr/bin/systemctl switch-root /sysroot /init

@@ -218,6 +218,7 @@ define Package/systemd/install
 	
 	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_DATA) ./files/etc/os-release.txt $(1)/etc/os-release
+	$(INSTALL_DATA) ./files/etc/machine-id.txt $(1)/etc/machine-id
 
 	$(INSTALL_DIR) $(1)/run
 	ln -sf /run $(1)/var/run
@@ -231,10 +232,18 @@ define Package/systemd/install
 	touch $(1)/etc/initrd-release
 	$(INSTALL_DIR) $(1)/sysroot
 
+    # 安裝自定義 init 腳本
+    $(INSTALL_BIN) ./files/init $(1)/init
+
 	# 確保 overlay 目錄存在
 	$(INSTALL_DIR) $(1)/overlay
 	mkdir -p $(1)/overlay/upper $(1)/overlay/work
 	mkdir -p $(1)/overlay/etc_upper $(1)/overlay/etc_work
+
+	# 安裝 systemd mount 單元文件
+    $(INSTALL_DIR) $(1)/usr/lib/systemd/system
+    $(INSTALL_DATA) ./files/usr/lib/systemd/system/overlay.mount $(1)/usr/lib/systemd/system/overlay.mount
+    $(INSTALL_DATA) ./files/usr/lib/systemd/system/sysroot.mount $(1)/usr/lib/systemd/system/sysroot.mount
 
 	# 建立 symlink，確保 overlay.mount 和 sysroot.mount 啟動
 	$(INSTALL_DIR) $(1)/etc/systemd/system/initrd-root-fs.target.wants
