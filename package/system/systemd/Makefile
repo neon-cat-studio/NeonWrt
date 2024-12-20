@@ -49,19 +49,6 @@ CONFIGURE_ARGS += \
 	--enable-elfutils \
 	--enable-gnutls \
 	--enable-libcurl
-	$(call SYSTEMD_DISABLE_PKG,bootchart,bootchart) \
-	$(call SYSTEMD_DISABLE_PKG,coredump,coredump) \
-	$(call SYSTEMD_DISABLE_PKG,hostnamed,hostnamed) \
-	$(call SYSTEMD_DISABLE_PKG,localed,localed) \
-	$(call SYSTEMD_DISABLE_PKG,modules-load,kmod) \
-	$(call SYSTEMD_DISABLE_PKG,networkd,networkd) \
-	$(call SYSTEMD_DISABLE_PKG,random-seed,randomseed) \
-	$(call SYSTEMD_DISABLE_PKG,resolved,resolved) \
-	$(call SYSTEMD_DISABLE_PKG,rfkill,rfkill) \
-	$(call SYSTEMD_DISABLE_PKG,timedated,timedated) \
-	$(call SYSTEMD_DISABLE_PKG,timesyncd,timesyncd) \
-	$(call SYSTEMD_DISABLE_PKG,tmpfiles,tmpfiles) \
-	$(call SYSTEMD_DISABLE_PKG,update-utmp,utmp)
 
 MESON_ARGS += \
 	-Dlibdir=/usr/lib \
