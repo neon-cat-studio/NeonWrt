@@ -96,7 +96,7 @@ define Package/systemd
   SECTION:=base
   CATEGORY:=Base system
   TITLE:=Systemd init system
-  DEPENDS:=+libc +libcap +libselinux +libgcrypt +libseccomp +libpam +kmod +mount-utils +fdisk +lsblk +blkid +logger +dbus +agetty
+  DEPENDS:=+libc +libcap +libselinux +block-mount +libgcrypt +libseccomp +libpam +kmod +mount-utils +fdisk +lsblk +blkid +logger +dbus +agetty
 endef
 
 define Package/systemd/description
@@ -270,7 +270,7 @@ endef
 define Package/systemd-nspawn
 $(call Package/systemd/Default)
 	TITLE:=systemd namespace container support
-	DEPENDS+= systemd +libiptc
+	DEPENDS+= systemd +iptables
 endef
 
 define Package/systemd-nspawn/description
@@ -643,7 +643,7 @@ $(eval $(call SystemdBuildLib,bootchart,bootchart tool,))
 $(eval $(call SystemdBuildLib,hostnamed,hostname daemon,))
 $(eval $(call SystemdBuildLib,localed,locale daemon,))
 $(eval $(call SystemdBuildLib,modules-load,module loader,+libkmod))
-$(eval $(call SystemdBuildLib,networkd,network daemon,+libiptc))
+$(eval $(call SystemdBuildLib,networkd,network daemon,+iptables))
 $(eval $(call SystemdBuildLib,random-seed,randomseed tools,))
 $(eval $(call SystemdBuildLib,resolved,name resolver,+@EGLIBC_OPTION_EGLIBC_NSSWITCH))
 $(eval $(call SystemdBuildLib,rfkill,rfkill tools,+@USE_RFKILL))
