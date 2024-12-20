@@ -137,7 +137,6 @@ define Package/systemd/install
 		
 	$(INSTALL_DIR) $(1)/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libsystemd.so* $(1)/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libkmod.so* $(1)/lib
 
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) \
