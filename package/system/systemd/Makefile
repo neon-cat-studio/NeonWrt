@@ -217,7 +217,10 @@ define Package/systemd/install
 	$(INSTALL_DATA) ./files/etc/os-release.txt $(1)/etc/os-release
 
 	$(INSTALL_DIR) $(1)/run
-	if [ ! -e $(1)/var ]; then \
+	if [ -L $(1)/var ]; then \
+		rm -f $(1)/var; \
+	fi
+	if [ ! -d $(1)/var ]; then \
 		$(INSTALL_DIR) $(1)/var; \
 	fi
 	ln -sf /run $(1)/var/run
