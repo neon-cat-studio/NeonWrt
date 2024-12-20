@@ -10,3 +10,10 @@ What=overlayfs:/sysroot
 Where=/sysroot
 Type=overlayfs
 Options=noatime,lowerdir=/,upperdir=/overlay
+
+# 添加 /etc 的掛載邏輯
+[Mount]
+What=overlay
+Where=/etc
+Type=overlay
+Options=noatime,lowerdir=/etc,upperdir=/overlay/etc_upper,workdir=/overlay/etc_work
