@@ -217,8 +217,9 @@ define Package/systemd/install
 	$(CP) ./files/* $(1)/
 	
 	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_DATA) ./files/etc/os-release.txt $(1)/etc/os-release
-	$(INSTALL_DATA) ./files/etc/machine-id.txt $(1)/etc/machine-id
+	$(INSTALL_DATA) ./files/etc/os-release $(1)/etc/os-release
+	$(INSTALL_DATA) ./files/etc/machine-id $(1)/etc/machine-id
+	$(INSTALL_DATA) ./files/etc/hostname $(1)/etc/hostname
 
 	$(INSTALL_DIR) $(1)/run
 	ln -sf /run $(1)/var/run
