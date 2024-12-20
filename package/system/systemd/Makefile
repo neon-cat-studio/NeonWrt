@@ -231,17 +231,17 @@ define Package/systemd/install
 	touch $(1)/etc/initrd-release
 	$(INSTALL_DIR) $(1)/sysroot
 
-    # 確保 overlay 目錄存在
-    $(INSTALL_DIR) $(1)/overlay
-    mkdir -p $(1)/overlay/upper $(1)/overlay/work
-    mkdir -p $(1)/overlay/etc_upper $(1)/overlay/etc_work
+	# 確保 overlay 目錄存在
+	$(INSTALL_DIR) $(1)/overlay
+	mkdir -p $(1)/overlay/upper $(1)/overlay/work
+	mkdir -p $(1)/overlay/etc_upper $(1)/overlay/etc_work
 
-    # 建立 symlink，確保 overlay.mount 和 sysroot.mount 啟動
-    $(INSTALL_DIR) $(1)/etc/systemd/system/initrd-root-fs.target.wants
-    ln -sf /usr/lib/systemd/system/overlay.mount \
-        $(1)/etc/systemd/system/initrd-root-fs.target.wants/overlay.mount
-    ln -sf /usr/lib/systemd/system/sysroot.mount \
-        $(1)/etc/systemd/system/initrd-root-fs.target.wants/sysroot.mount
+	# 建立 symlink，確保 overlay.mount 和 sysroot.mount 啟動
+	$(INSTALL_DIR) $(1)/etc/systemd/system/initrd-root-fs.target.wants
+	ln -sf /usr/lib/systemd/system/overlay.mount \
+		$(1)/etc/systemd/system/initrd-root-fs.target.wants/overlay.mount
+	ln -sf /usr/lib/systemd/system/sysroot.mount \
+		$(1)/etc/systemd/system/initrd-root-fs.target.wants/sysroot.mount
 endef
 
 
