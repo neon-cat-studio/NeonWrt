@@ -51,23 +51,25 @@ CONFIGURE_ARGS += \
 	--enable-pam \
 	--enable-logind \
 	--enable-seccomp \
-	--enable-apparmor \
-	--enable-introspection \
-	--enable-gudev \
-	--enable-chkconfig \
-	--enable-ima \
-	--enable-selinux \
-	--enable-audit \
-	--enable-smack \
-	--enable-xz \
-	--enable-acl \
-	--enable-gcrypt \
-	--enable-myhostname \
-	--enable-libcryptsetup \
-	--enable-polkit \
-	--enable-elfutils \
-	--enable-gnutls \
-	--enable-libcurl \
+	$(CONFIGURE_ARGS_FAST_BUILD) \
+	$(CONFIGURE_ARGS_EMBEDDED) \
+	--disable-apparmor \
+	--disable-introspection \
+	--disable-gudev \
+	--disable-chkconfig \
+	--disable-ima \
+	--disable-selinux \
+	--disable-audit \
+	--disable-smack \
+	--disable-xz \
+	--disable-acl \
+	--disable-gcrypt \
+	--disable-myhostname \
+	--disable-libcryptsetup \
+	--disable-polkit \
+	--disable-elfutils \
+	--disable-gnutls \
+	--disable-libcurl \
 	$(call SYSTEMD_DISABLE_PKG,bootchart,bootchart) \
 	$(call SYSTEMD_DISABLE_PKG,coredump,coredump) \
 	$(call SYSTEMD_DISABLE_PKG,hostnamed,hostnamed) \
