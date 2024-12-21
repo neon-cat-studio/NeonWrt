@@ -94,8 +94,6 @@ MESON_ARGS += \
 	-Ddefault-user-shell=/bin/sh \
 	-Dinstall-tests=false
 
-$(eval $(call BuildDepends,libs/libapparmor))
-
 define Package/systemd
   SECTION:=base
   CATEGORY:=Base system
