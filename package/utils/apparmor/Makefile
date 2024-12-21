@@ -152,6 +152,18 @@ define Build/Install
 	+$(MAKE_VARS) PYTHON=$(HOST_PYTHON) VERSION=$(PYTHON3_VERSION) \
 		CFLAGS="$(TARGET_CFLAGS)" LDFLAGS="$(TARGET_LDFLAGS)" USE_SYSTEM=1 $(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR)/profiles \
 		$(MAKE_FLAGS) DESTDIR="$(PKG_INSTALL_DIR)-profiles" install
+
+	$(INSTALL_DIR) $(PKG_INSTALL_DIR)/usr/lib
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/libraries/libapparmor/src/.libs/libapparmor.so* $(PKG_INSTALL_DIR)/usr/lib/
+endef
+
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/lib $(1)/usr/include/apparmor
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/libapparmor.so* $(1)/usr/lib/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/libraries/libapparmor/include/*.h $(1)/usr/include/apparmor/
+
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(INSTALL_DATA) ./files/libapparmor.pc $(1)/usr/lib/pkgconfig/libapparmor.pc
 endef
 
 define Package/libapparmor/install
