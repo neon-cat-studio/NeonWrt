@@ -85,6 +85,8 @@ CONFIGURE_ARGS += \
 
 MESON_ARGS += \
 	-Dlibdir=/usr/lib \
+	-Dutmp=true \
+	-Dudev=true \
 	-Dlogind=true \
 	-Dpam=enabled \
 	-Dseccomp=enabled \

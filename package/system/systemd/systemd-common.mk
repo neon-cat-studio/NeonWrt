@@ -138,7 +138,9 @@ SYSTEMD_SYSTEM_SERVICES = \
 	systemd-suspend.service \
 	systemd-sysctl.service \
 	systemd-sysusers.service \
+	systemd-udevd.service \
 	systemd-update-done.service \
+	systemd-update-utmp.service \
 	user@.service
 
 SYSTEMD_SYSTEM_MOUNTS = \
