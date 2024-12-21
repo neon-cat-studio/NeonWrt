@@ -273,6 +273,8 @@ define Package/systemd/install
 		$(1)/etc/systemd/system/initrd-root-fs.target.wants/overlay.mount
 	ln -sf /usr/lib/systemd/system/sysroot.mount \
 		$(1)/etc/systemd/system/initrd-root-fs.target.wants/sysroot.mount
+
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/systemd/systemd-executor $(1)/usr/lib/systemd
 endef
 
 define Package/systemd-executor/install
