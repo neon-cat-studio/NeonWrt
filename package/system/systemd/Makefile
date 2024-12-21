@@ -15,6 +15,8 @@ PKG_BUILD_DEPENDS:=intltool/host gperf/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
+HOST_BUILD_DEPENDS:=python3-jinja2/host
+
 include systemd-common.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/meson.mk
