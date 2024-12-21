@@ -30,11 +30,11 @@ CONFIGURE_ARGS_FAST_BUILD = \
 	--without-python
 
 CONFIGURE_ARGS_EMBEDDED = \
-	--disable-backlight \
-	--disable-binfmt \
-	--disable-firstboot \
-	--disable-hibernate \
-	--disable-ldconfig \
+	--enable-backlight \
+	--enable-binfmt \
+	--enable-firstboot \
+	--enable-hibernate \
+	--enable-ldconfig \
 	--disable-microhttpd \
 	--disable-nls \
 	--disable-qrencode \
