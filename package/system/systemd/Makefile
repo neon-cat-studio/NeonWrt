@@ -31,16 +31,16 @@ CONFIGURE_ARGS_FAST_BUILD = \
 
 CONFIGURE_ARGS_EMBEDDED = \
 	--enable-backlight \
-	--enable-binfmt \
+	--disable-binfmt \
 	--enable-firstboot \
-	--enable-hibernate \
+	--disable-hibernate \
 	--enable-ldconfig \
-	--enable-microhttpd \
+	--disable-microhttpd \
 	--enable-nls \
 	--enable-qrencode \
 	--enable-quotacheck \
 	--enable-vconsole \
-	--enable-xkbcommon
+	--disable-xkbcommon
 
 CONFIGURE_ARGS += \
 	--prefix=/usr \
@@ -53,7 +53,7 @@ CONFIGURE_ARGS += \
 	--enable-seccomp \
 	$(CONFIGURE_ARGS_FAST_BUILD) \
 	$(CONFIGURE_ARGS_EMBEDDED) \
-	--disable-apparmor \
+	--enable-apparmor \
 	--enable-introspection \
 	--enable-gudev \
 	--enable-chkconfig \
