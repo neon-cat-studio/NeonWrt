@@ -11,11 +11,9 @@ PKG_HASH:=skip
 PKG_LICENSE:=LGPL-2.1+ GPL-2.0+
 PKG_LICENSE_FILES:=LICENSE.GPL2 LICENSE.LGPL2.1
 
-PKG_BUILD_DEPENDS:=intltool/host gperf/host
+PKG_BUILD_DEPENDS:=intltool/host gperf/host python-jinja2/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
-
-HOST_BUILD_DEPENDS:=python-jinja2/host
 
 include systemd-common.mk
 include $(INCLUDE_DIR)/package.mk
@@ -691,4 +689,3 @@ $(eval $(call SystemdBuildLib,timedated,timedate daemon,))
 $(eval $(call SystemdBuildLib,timesyncd,network time synchronization,))
 $(eval $(call SystemdBuildLib,udevd,device manager,))
 $(eval $(call SystemdBuildLib,update-utmp,utmp/wtmp log handling,))
-$(eval $(call HostBuild))
