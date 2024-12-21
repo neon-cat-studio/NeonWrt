@@ -24,9 +24,9 @@ TARGET_CFLAGS += --std=gnu99
 SYSTEMD_DISABLE_PKG = $(if $(CONFIG_PACKAGE_systemd-$(1)),,--disable-$(2))
 
 CONFIGURE_ARGS_FAST_BUILD = \
-	--disable-gtk-doc \
-	--disable-gtk-doc-html \
-	--disable-manpages \
+	--enable-gtk-doc \
+	--enable-gtk-doc-html \
+	--enable-manpages \
 	--without-python
 
 CONFIGURE_ARGS_EMBEDDED = \
