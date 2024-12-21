@@ -415,6 +415,16 @@ endef
 
 
 define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/lib/systemd
+	$(INSTALL_BIN) \
+		$(PKG_INSTALL_DIR)/usr/lib/systemd/systemd-sysroot-fstab-check \
+		$(1)/usr/lib/systemd
+
+	$(INSTALL_DIR) $(1)/usr/lib/systemd/system
+	$(INSTALL_DATA) \
+		$(PKG_INSTALL_DIR)/usr/lib/systemd/system/systemd-soft-reboot.service \
+		$(1)/usr/lib/systemd/system
+		
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libudev.so* $(1)/usr/lib
 #	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgudev-1.0.so* $(1)/usr/lib
