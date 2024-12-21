@@ -29,6 +29,7 @@ SYSTEMD_LIB = \
 	systemd-sleep \
 	systemd-socket-proxyd \
 	systemd-sysctl \
+	systemd-sysroot-fstab-check \
 	systemd-update-done
 
 SYSTEMD_SYSTEM_TARGET_WANTS = \
@@ -133,6 +134,7 @@ SYSTEMD_SYSTEM_SERVICES = \
 	systemd-poweroff.service \
 	systemd-reboot.service \
 	systemd-remount-fs.service \
+	systemd-soft-reboot.service \
 	systemd-suspend.service \
 	systemd-sysctl.service \
 	systemd-sysusers.service \
