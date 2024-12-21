@@ -41,7 +41,7 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/Python-$(PKG_VERSION)
 HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/Python-$(PKG_VERSION)
 
 PKG_BUILD_DEPENDS:=bluez python3/host python-build/host python-installer/host python-wheel/host
-HOST_BUILD_DEPENDS:=bzip2/host libffi/host
+HOST_BUILD_DEPENDS:=bzip2/host libffi/host python3-jinja2/host python3-markupsafe/host
 
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
@@ -111,7 +111,7 @@ commonly used parts of the standard library.
 endef
 
 PYTHON3_LIB_FILES_DEL:=
-PYTHON3_PACKAGES:=
+PYTHON3_PACKAGES:=python3-jinja2
 PYTHON3_SO_SUFFIX:=cpython-$(PYTHON3_VERSION_MAJOR)$(PYTHON3_VERSION_MINOR)-*.so
 PYTHON3_PACKAGES_DEPENDS:=
 define Py3BasePackage
@@ -354,6 +354,7 @@ define Host/Install
 		$(call HostPatchDir,$(HOST_PYTHON3_PKG_DIR),./patches-host-pip,)
 		touch $(HOST_PYTHON3_PKG_DIR)/.pip_installed_$(PYTHON3_PIP_VERSION)-$(PYTHON3_PIP_PKG_RELEASE)
 	)
+    $(STAGING_DIR_HOSTPKG)/bin/pip install jinja2
 endef
 
 $(eval $(call HostBuild))
