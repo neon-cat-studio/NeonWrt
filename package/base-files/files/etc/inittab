@@ -1,0 +1,3 @@
+::sysinit:/lib/systemd/systemd
+::shutdown:/lib/systemd/systemd --system --halt
+::askconsole:/usr/bin/login
