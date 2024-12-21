@@ -86,7 +86,7 @@ CONFIGURE_ARGS += \
 
 MESON_ARGS += \
 	-Dlibdir=/usr/lib \
-	-Dlink-executor-shared \
+	-Dlink-executor-shared=true \
 	-Dlogind=true \
 	-Dpam=enabled \
 	-Dseccomp=enabled \
