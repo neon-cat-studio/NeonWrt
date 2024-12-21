@@ -161,9 +161,9 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/libapparmor.so* $(1)/usr/lib/
 
-	$(1)/usr/include/apparmor
+	$(INSTALL_DIR) $(1)/usr/include/apparmor
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/libraries/libapparmor/include/*.h $(1)/usr/include/apparmor/
-	$(1)/usr/sys/apparmor
+	$(INSTALL_DIR) $(1)/usr/sys/apparmor
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/libraries/libapparmor/include/sys/*.h $(1)/usr/sys/apparmor/
 
 	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
