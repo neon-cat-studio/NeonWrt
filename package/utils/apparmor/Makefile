@@ -156,6 +156,7 @@ endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/libraries/libapparmor/src/.libs/libapparmor.so* $(PKG_INSTALL_DIR)/usr/lib/
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/libapparmor.so* $(1)/usr/lib/
 
 	$(1)/usr/include/apparmor
