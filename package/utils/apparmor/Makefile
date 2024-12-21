@@ -162,17 +162,17 @@ define Build/InstallDev
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/libapparmor.so* $(1)/usr/lib/
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/libraries/libapparmor/include/*.h $(1)/usr/include/apparmor/
 
-    $(INSTALL_DIR) $(1)/usr/lib/pkgconfig
-    echo "prefix=/usr" > $(1)/usr/lib/pkgconfig/libapparmor.pc
-    echo "exec_prefix=\${prefix}" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
-    echo "libdir=\${exec_prefix}/lib" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
-    echo "includedir=\${prefix}/include/apparmor" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
-    echo "" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
-    echo "Name: libapparmor" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
-    echo "Description: AppArmor library" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
-    echo "Version: $(PKG_VERSION)" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
-    echo "Libs: -L\${libdir} -lapparmor" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
-    echo "Cflags: -I\${includedir}" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	echo "prefix=/usr" > $(1)/usr/lib/pkgconfig/libapparmor.pc
+	echo "exec_prefix=\${prefix}" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
+	echo "libdir=\${exec_prefix}/lib" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
+	echo "includedir=\${prefix}/include/apparmor" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
+	echo "" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
+	echo "Name: libapparmor" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
+	echo "Description: AppArmor library" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
+	echo "Version: $(PKG_VERSION)" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
+	echo "Libs: -L\${libdir} -lapparmor" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
+	echo "Cflags: -I\${includedir}" >> $(1)/usr/lib/pkgconfig/libapparmor.pc
 endef
 
 define Package/libapparmor/install
