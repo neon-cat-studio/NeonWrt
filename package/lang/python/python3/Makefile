@@ -111,7 +111,7 @@ commonly used parts of the standard library.
 endef
 
 PYTHON3_LIB_FILES_DEL:=
-PYTHON3_PACKAGES:=python3-jinja2
+PYTHON3_PACKAGES:=
 PYTHON3_SO_SUFFIX:=cpython-$(PYTHON3_VERSION_MAJOR)$(PYTHON3_VERSION_MINOR)-*.so
 PYTHON3_PACKAGES_DEPENDS:=
 define Py3BasePackage
