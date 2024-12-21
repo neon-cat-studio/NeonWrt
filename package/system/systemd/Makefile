@@ -35,12 +35,12 @@ CONFIGURE_ARGS_EMBEDDED = \
 	--enable-firstboot \
 	--enable-hibernate \
 	--enable-ldconfig \
-	--disable-microhttpd \
-	--disable-nls \
-	--disable-qrencode \
-	--disable-quotacheck \
-	--disable-vconsole \
-	--disable-xkbcommon
+	--enable-microhttpd \
+	--enable-nls \
+	--enable-qrencode \
+	--enable-quotacheck \
+	--enable-vconsole \
+	--enable-xkbcommon
 
 CONFIGURE_ARGS += \
 	--prefix=/usr \
