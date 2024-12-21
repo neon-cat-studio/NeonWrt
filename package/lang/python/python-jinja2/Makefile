@@ -16,11 +16,13 @@ PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.rst
 PKG_CPE_ID:=cpe:/a:pocoo:jinja2
 
-HOST_BUILD_DEPENDS:=python3-light/host python3-markupsafe/host
+HOST_BUILD_DEPENDS:=python-markupsafe/host
 
 include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
 include ../python3-package.mk
+include ../python3-host-build.mk
 
 define Package/python3-jinja2
   SECTION:=lang
@@ -42,24 +44,7 @@ unicode support, an optional integrated sandboxed execution
 environment, widely used and BSD licensed.
 endef
 
-define Host/Package/python3-jinja2
-  SECTION:=host
-  CATEGORY:=Languages
-  TITLE:=Very fast and expressive template engine (host)
-  URL:=https://palletsprojects.com/p/jinja/
-endef
-
-define Host/Compile
-	$(call HostPython3/Run, \
-		$(HOST_BUILD_DIR), \
-		-m pip install --no-cache-dir --target="$(STAGING_DIR_HOSTPKG)/lib/python$(PYTHON3_VERSION)/site-packages" Jinja2==$(PKG_VERSION))
-endef
-
-define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/lib/python$(PYTHON3_VERSION)/site-packages
-endef
-
 $(eval $(call Py3Package,python3-jinja2))
 $(eval $(call BuildPackage,python3-jinja2))
 $(eval $(call BuildPackage,python3-jinja2-src))
-$(eval $(call HostBuildPackage,python3-jinja2))
+$(eval $(call HostBuild))
