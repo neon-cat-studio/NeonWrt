@@ -62,9 +62,6 @@ define Py3Host/Install/Installer
 			, \
 		$(PYTHON3_HOST_INSTALL_VARS) \
 	)
-	$(call HostPython3/Run, \
-		-m pip install --no-cache-dir jinja2 \
-	)
 endef
 
 define Py3Host/Install
