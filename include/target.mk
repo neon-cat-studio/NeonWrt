@@ -28,9 +28,9 @@ DEFAULT_PACKAGES:=\
 	urngd
 
 ifneq ($(CONFIG_SELINUX),)
-DEFAULT_PACKAGES+=busybox-selinux systemd
+DEFAULT_PACKAGES+=busybox-selinux systemd systemd-executor
 else
-DEFAULT_PACKAGES+=busybox systemd
+DEFAULT_PACKAGES+=busybox systemd systemd-executor
 endif
 
 # For the basic set

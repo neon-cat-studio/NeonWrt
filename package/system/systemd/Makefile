@@ -85,11 +85,11 @@ CONFIGURE_ARGS += \
 
 MESON_ARGS += \
 	-Dlibdir=/usr/lib \
-	-Dlink-executor-shared=true \
 	-Dlogind=true \
 	-Dpam=enabled \
 	-Dseccomp=enabled \
 	-Dstatic-libsystemd=false \
+	-Dlink-executor-shared=true \
 	-Ddefault-dnssec=allow-downgrade \
 	-Ddefault-user-shell=/bin/sh \
 	-Dinstall-tests=false
@@ -113,6 +113,12 @@ define Package/systemd/conffiles
 /etc/machine-id
 /etc/systemd/system.conf
 /etc/systemd/user.conf
+endef
+
+define Package/systemd-executor
+$(call Package/systemd/Default)
+	TITLE:=systemd executor component
+	DEPENDS+= systemd +libapparmor +libpam +libselinux +libseccomp
 endef
 
 define Package/systemd/install
@@ -269,6 +275,12 @@ define Package/systemd/install
 		$(1)/etc/systemd/system/initrd-root-fs.target.wants/sysroot.mount
 endef
 
+define Package/systemd-executor/install
+	$(INSTALL_DIR) $(1)/usr/lib/systemd
+	$(INSTALL_BIN) \
+		$(PKG_INSTALL_DIR)/usr/lib/systemd/systemd-executor \
+		$(1)/usr/lib/systemd
+endef
 
 define Package/systemd-coredump
 $(call Package/systemd/Default)
