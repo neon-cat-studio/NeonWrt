@@ -26,8 +26,7 @@ SYSTEMD_DISABLE_PKG = $(if $(CONFIG_PACKAGE_systemd-$(1)),,--disable-$(2))
 CONFIGURE_ARGS_FAST_BUILD = \
 	--enable-gtk-doc \
 	--enable-gtk-doc-html \
-	--enable-manpages \
-	--without-python
+	--enable-manpages
 
 CONFIGURE_ARGS_EMBEDDED = \
 	--enable-backlight \
