@@ -122,6 +122,12 @@ $(call Package/systemd/Default)
 	DEPENDS+= systemd +libapparmor +libpam +libselinux +libseccomp
 endef
 
+define Package/systemd-tmpfiles
+$(call Package/systemd/Default)
+	TITLE:=systemd tmpfiles component
+	DEPENDS+= systemd +libacl
+endef
+
 define Package/systemd/install
 	$(INSTALL_DIR) $(1)/etc/systemd
 	$(CP) \
@@ -276,12 +282,20 @@ define Package/systemd/install
 		$(1)/etc/systemd/system/initrd-root-fs.target.wants/sysroot.mount
 
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/systemd/systemd-executor $(1)/usr/lib/systemd
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/systemd/systemd-tmpfiles $(1)/usr/lib/systemd
 endef
 
 define Package/systemd-executor/install
 	$(INSTALL_DIR) $(1)/usr/lib/systemd
 	$(INSTALL_BIN) \
 		$(PKG_INSTALL_DIR)/usr/lib/systemd/systemd-executor \
+		$(1)/usr/lib/systemd
+endef
+
+define Package/systemd-tmpfiles/install
+	$(INSTALL_DIR) $(1)/usr/lib/systemd
+	$(INSTALL_BIN) \
+		$(PKG_INSTALL_DIR)/usr/lib/systemd/systemd-tmpfiles \
 		$(1)/usr/lib/systemd
 endef
 
