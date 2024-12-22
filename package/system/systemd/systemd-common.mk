@@ -86,6 +86,7 @@ SYSTEMD_SYSTEM_TARGETS = \
 	slices.target \
 	smartcard.target \
 	sockets.target \
+	soft-reboot.target \
 	sound.target \
 	suspend.target \
 	swap.target \
@@ -138,7 +139,12 @@ SYSTEMD_SYSTEM_SERVICES = \
 	systemd-suspend.service \
 	systemd-sysctl.service \
 	systemd-sysusers.service \
+	systemd-tmpfiles-setup.service \
+	systemd-tmpfiles-setup-dev.service \
+	systemd-tmpfiles-setup-dev-early.service \
 	systemd-udevd.service \
+	systemd-udev-load-credentials.service \
+	systemd-udev-trigger.service \
 	systemd-update-done.service \
 	systemd-update-utmp.service \
 	user@.service
