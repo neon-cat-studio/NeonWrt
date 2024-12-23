@@ -45,6 +45,8 @@ CONFIGURE_ARGS += \
 	--prefix=/usr \
 	--sysconfdir=/etc \
 	-Dc_link_args="-Wl,--disable-new-dtags -Wl,-rpath=/usr/lib" \
+    --with-libgcrypt-prefix=$(STAGING_DIR)/usr \
+    --with-pkg-config=$(STAGING_DIR)/host/bin/pkg-config \
 	--enable-dbus \
 	--enable-shutdown \
 	--enable-pam \
