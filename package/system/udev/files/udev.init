@@ -1,0 +1,17 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2024 NeonWrt
+START=10
+STOP=15
+
+start() {
+    echo "Starting udev..."
+    /sbin/udevd --daemon
+    /sbin/udevadm trigger --action=add --type=subsystems
+    /sbin/udevadm trigger --action=add --type=devices
+    /sbin/udevadm settle
+}
+
+stop() {
+    echo "Stopping udev..."
+    /sbin/udevadm control --exit
+}
