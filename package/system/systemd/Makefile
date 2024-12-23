@@ -100,7 +100,7 @@ define Package/systemd
   CATEGORY:=Base system
   TITLE:=Systemd init system
   DEPENDS:=+libc +libcap +libselinux +libkmod +libgcrypt +libseccomp +libpam +libarchive +libapparmor \
-	+libbpf+libmicrohttpd +libacl +libcurl +libidn +libidn2 +libip4tc +libip6tc +liblzma +libzstd +liblz4\
+	+libbpf +libmicrohttpd +libacl +libcurl +libidn +libidn2 +libip4tc +libip6tc +liblzma +libzstd +liblz4\
   	+udev +dbus +bzip2 +block-mount +fstools +mount-utils +fdisk +lsblk +blkid +logger +agetty +cryptsetup +gnutls-utils +openssl-util
 endef
 
