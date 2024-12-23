@@ -101,9 +101,9 @@ define Package/systemd
   TITLE:=Systemd init system
   DEPENDS:=+libc +libcap +libselinux +libkmod +libgcrypt +libseccomp +libpam +libarchive +libapparmor +liblz4 \
 	+libfido2 +libbpf +libmicrohttpd +libacl +libcurl +libidn +libidn2 +libip4tc +libip6tc +liblzma +libzstd \
-  	+kexec +dbus +valgrind +p11-kit +audit +bzip2 +block-mount +fstools +mount-utils +fdisk +lsblk +blkid +logger +agetty +cryptsetup +gnutls-utils +openssl-util
+  	+valgrind +audit +bzip2 +block-mount +fstools +mount-utils +fdisk +lsblk +blkid +logger +agetty +cryptsetup +gnutls-utils +openssl-util
 endef
-
+#+kexec +dbus +p11-kit
 define Package/systemd/description
   systemd is a modern init system and system manager for Linux.
   (Only Support for GLIBC, Musl not Support!)
