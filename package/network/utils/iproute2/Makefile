@@ -171,11 +171,11 @@ endif
 define Build/Configure
 	echo "static const char SNAPSHOT[] = \"$(PKG_VERSION)-$(PKG_RELEASE)-openwrt\";" \
 		> $(PKG_BUILD_DIR)/include/SNAPSHOT.h
-	$(call Build/RunMake,configure, \
+	cd $(PKG_BUILD_DIR) && \
+	./configure \
 		--include_dir=$(STAGING_DIR)/usr/include \
 		--libdir=$(STAGING_DIR)/usr/lib \
-		--libbpf_force=$(LIBBPF_FORCE) \
-	)
+		--libbpf_force=$(LIBBPF_FORCE)
 endef
 
 TARGET_LDFLAGS += -Wl,--as-needed
