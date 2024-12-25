@@ -11,7 +11,7 @@ PKG_HASH:=skip
 PKG_LICENSE:=LGPL-2.1+ GPL-2.0+
 PKG_LICENSE_FILES:=LICENSE.GPL2 LICENSE.LGPL2.1
 
-PKG_BUILD_DEPENDS:=intltool/host gperf/host python-jinja2/host
+PKG_BUILD_DEPENDS:=intltool/host gperf/host python-jinja2/host python-pyelftools/host python-pefile/host
 PKG_BUILD_PARALLEL:=1
 PKG_INSTALL:=1
 
@@ -86,6 +86,7 @@ CONFIGURE_ARGS += \
 MESON_ARGS += \
 	-Dlibdir=/usr/lib \
 	-Dutmp=true \
+	-Ddbus-interfaces=true \
 	-Dlogind=true \
 	-Dpam=enabled \
 	-Dseccomp=enabled \
