@@ -168,11 +168,6 @@ ifdef CONFIG_PACKAGE_rdma
   HAVE_MNL:=y
 endif
 
-define Build/Configure
-	echo "static const char SNAPSHOT[] = \"$(PKG_VERSION)-$(PKG_RELEASE)-openwrt\";" \
-		> $(PKG_BUILD_DIR)/include/SNAPSHOT.h
-endef
-
 TARGET_LDFLAGS += -Wl,--as-needed
 TARGET_CPPFLAGS += -I$(STAGING_DIR)/usr/include/libnl-tiny
 
