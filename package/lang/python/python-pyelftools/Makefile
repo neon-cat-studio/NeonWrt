@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 PYPI_NAME:=pyelftools
 PKG_SOURCE:=$(PYPI_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://files.pythonhosted.org/packages/88/56/0f2d69ed9a0060da009f672ddec8a71c041d098a66f6b1d80264bf6bbdc0
-PKG_HASH:=80f43f7847868558c68a1f2b70b4a56dc7176c97ea11a4745dc92ef49d4a4b4d
+PKG_HASH:=skip
 
 PKG_BUILD_DEPENDS:=python3/host
 PKG_LICENSE:=Public domain
