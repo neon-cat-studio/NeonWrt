@@ -109,6 +109,12 @@ CONFIGURE_ARGS += \
 	--without-included-gettext \
 	--with-pagesize=4 \
 
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/include/valgrind
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/include/*.h $(1)/usr/include/valgrind/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/memcheck/*.h $(1)/usr/include/valgrind/
+endef
+
 define Package/valgrind/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/valgrind* $(1)/usr/bin/
