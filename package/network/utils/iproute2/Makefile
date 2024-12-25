@@ -171,7 +171,6 @@ endif
 define Build/Configure
 	echo "static const char SNAPSHOT[] = \"$(PKG_VERSION)-$(PKG_RELEASE)-openwrt\";" \
 		> $(PKG_BUILD_DIR)/include/SNAPSHOT.h
-	touch $(PKG_BUILD_DIR)/config.mk
 endef
 
 TARGET_LDFLAGS += -Wl,--as-needed
