@@ -11,3 +11,5 @@ FEATURES+=fpu
 KERNEL_IMAGES:=zImage
 
 DEFAULT_PACKAGES += blockdev kmod-gpio-button-hotplug
+
+HOST_BUILD_DEPENDS += python3/host python3-cryptography/host python3-pyelftools/host
