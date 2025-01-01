@@ -21,13 +21,9 @@ PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=Your Name <your.email@example.com>
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
-HOST_BUILD_DEPENDS:=python3/host python-markupsafe/host
-
 include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
 include ../python3-package.mk
-include ../python3-host-build.mk
 
 define Package/python3-pyelftools
   SECTION:=lang
@@ -52,22 +48,4 @@ define Package/python3-pyelftools/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/python*/site-packages/* $(1)$(PYTHON3_PKG_DIR)/
 endef
 
-define Host/Compile
-	$(call HostPython3/Run, \
-		$(HOST_BUILD_DIR), \
-		-m pip install --no-cache-dir --prefix="$(STAGING_DIR_HOSTPKG)" pyelftools==$(PKG_VERSION))
-endef
-
-define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/lib/python$(PYTHON3_VERSION)/site-packages
-endef
-
-define Host/Package/python3-pyelftools
-  SECTION:=host
-  CATEGORY:=Languages
-  TITLE:=Python library for parsing and analyzing ELF files
-  URL:=https://github.com/eliben/pyelftools
-endef
-
 $(eval $(call BuildPackage,python3-pyelftools))
-$(eval $(call HostBuild))

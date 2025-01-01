@@ -19,14 +19,11 @@ PKG_LICENSE_FILES:=LICENSE.APACHE LICENSE.BSD
 PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>
 PKG_CPE_ID:=cpe:/a:cryptography_project:cryptography
 
-HOST_BUILD_DEPENDS:=python3/host
 PKG_BUILD_DEPENDS:=libffi/host python-cffi/host python-setuptools-rust/host
 
 include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
 include ../python3-package.mk
-include ../python3-host-build.mk
 
 define Package/python3-cryptography
   SECTION:=lang
@@ -50,24 +47,6 @@ primitives to Python developers. Our goal is for it to be your
 "cryptographic standard library".
 endef
 
-define Host/Compile
-	$(call HostPython3/Run, \
-		$(HOST_BUILD_DIR), \
-		-m pip install --no-cache-dir --prefix="$(STAGING_DIR_HOSTPKG)" Jinja2==$(PKG_VERSION))
-endef
-
-define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/lib/python$(PYTHON3_VERSION)/site-packages
-endef
-
-define Host/Package/python3-jinja2
-  SECTION:=host
-  CATEGORY:=Languages
-  TITLE:=Very fast and expressive template engine (host)
-  URL:=https://palletsprojects.com/p/jinja/
-endef
-
 $(eval $(call Py3Package,python3-cryptography))
 $(eval $(call BuildPackage,python3-cryptography))
 $(eval $(call BuildPackage,python3-cryptography-src))
-$(eval $(call HostBuild))
