@@ -15,6 +15,7 @@ PKG_SOURCE_URL:=https://github.com/STMicroelectronics/optee_os.git
 PKG_SOURCE_VERSION:=$(PKG_VERSION)
 PKG_MIRROR_HASH:=36a4843391a452075d6a690ad253ad887aa523c2705e1d438cf41e8821ee9439
 PKG_MAINTAINER:=Thomas Richard <thomas.richard@bootlin.com>
+HOST_BUILD_DEPENDS := python3/host python3-cryptography/host python3-pyelftools/host
 
 OPTEE_USE_INTREE_DTC:=1
 
