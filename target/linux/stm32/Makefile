@@ -2,32 +2,31 @@
 #
 # Copyright (C) 2024 Bootlin
 #
-# SPDX-License-Identifier: GPL-2.0-only
-#
-# Copyright (C) 2024 Bootlin
-#
 
 include $(TOPDIR)/rules.mk
 
+ARCH:=arm
 BOARD:=stm32
 BOARDNAME:=STMicroelectronics STM32
-FEATURES:=boot-part emmc ext4 gpio rtc usb python3 python3-cryptography python3-pyelftools
+FEATURES:=audio boot-part display ext4 fpu gpio rootfs-part rtc squashfs usb usbgadget
 SUBTARGETS:=stm32mp1
-CPU_TYPE:=
 
 KERNEL_PATCHVER:=5.15
 
-DEFAULT_PACKAGES += python3 python3-cryptography python3-pyelftools
-
-HOST_BUILD_DEPENDS += python3/host python3-cryptography/host python3-pyelftools/host
+define Target/Description
+	Build firmware image for STM32 devices
+endef
 
 include $(INCLUDE_DIR)/target.mk
 
-define Target/Description
-	Build firmware image for STM32 devices with Python tools support:
-	- python3
-	- python3-cryptography
-	- python3-pyelftools
-endef
+DEFAULT_PACKAGES := $(filter-out urngd,$(DEFAULT_PACKAGES))
+DEFAULT_PACKAGES += \
+	kmod-gpio-button-hotplug \
+	kmod-usb-hid \
+	kmod-sound-core \
+	kmod-fs-vfat kmod-nls-cp437 kmod-nls-iso8859-1 \
+	blockdev partx-utils mkf2fs e2fsprogs
+
+KERNELNAME:=Image dtbs
 
 $(eval $(call BuildTarget))
