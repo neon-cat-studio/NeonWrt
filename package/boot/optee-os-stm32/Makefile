@@ -63,4 +63,10 @@ define Build/InstallDev
 		$(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-tee-pageable_v2.bin
 endef
 
+OPTEE_MAKE_FLAGS += \
+    $(if $(findstring python3-cryptography,$(STAGING_DIR_HOSTPKG)/bin/python3),,\
+        $(error Please install python3-cryptography hostpkg)) \
+    $(if $(findstring python3-pyelftools,$(STAGING_DIR_HOSTPKG)/bin/python3),,\
+        $(error Please install python3-pyelftools hostpkg))
+
 $(eval $(call BuildPackage/Optee-os))

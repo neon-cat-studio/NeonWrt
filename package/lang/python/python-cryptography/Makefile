@@ -19,6 +19,7 @@ PKG_LICENSE_FILES:=LICENSE.APACHE LICENSE.BSD
 PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>
 PKG_CPE_ID:=cpe:/a:cryptography_project:cryptography
 
+HOST_BUILD_DEPENDS:=python3/host
 PKG_BUILD_DEPENDS:=libffi/host python-cffi/host python-setuptools-rust/host
 
 include ../pypi.mk

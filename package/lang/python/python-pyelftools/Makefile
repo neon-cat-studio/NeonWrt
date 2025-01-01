@@ -21,7 +21,7 @@ PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=Your Name <your.email@example.com>
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
-HOST_BUILD_DEPENDS:=python-markupsafe/host
+HOST_BUILD_DEPENDS:=python3/host python-markupsafe/host
 
 include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk
