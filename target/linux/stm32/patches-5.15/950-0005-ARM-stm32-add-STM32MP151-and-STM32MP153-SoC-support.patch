@@ -14,7 +14,7 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
 --- a/arch/arm/mach-stm32/board-dt.c
 +++ b/arch/arm/mach-stm32/board-dt.c
-@@ -15,12 +15,14 @@ static const char *const stm32_compat[] __initconst = {
+@@ -15,12 +15,14 @@
 	"st,stm32f429",
 	"st,stm32f469",
 	"st,stm32f746",
