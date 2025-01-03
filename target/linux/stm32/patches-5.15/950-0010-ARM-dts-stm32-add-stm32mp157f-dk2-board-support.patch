@@ -30,7 +30,7 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
            - const: st,stm32mp157c-ev1
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
-@@ -1237,7 +1237,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
+@@ -1132,7 +1132,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
  	stm32mp157c-emsbc-argon.dtb \
  	stm32mp157c-ev1.dtb \
  	stm32mp157c-lxa-mc1.dtb \
