@@ -19,19 +19,15 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
 --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
 +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -62,7 +62,9 @@ properties:
+@@ -62,4 +62,5 @@ properties:
                - st,stm32mp157c-ed1
                - st,stm32mp157a-dk1
                - st,stm32mp157c-dk2
                - st,stm32mp157f-dk2
-+              - st,stm32mp157a-dk1
 +              - st,stm32mp157d-dk1
- 
-           - const: st,stm32mp157
-       - items:
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
-@@ -1238,6 +1238,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
+@@ -1133,6 +1133,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
  	stm32mp157c-ev1.dtb \
  	stm32mp157c-lxa-mc1.dtb \
  	stm32mp157c-odyssey.dtb \
