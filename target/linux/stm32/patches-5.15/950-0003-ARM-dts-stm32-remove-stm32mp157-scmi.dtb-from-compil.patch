@@ -31,7 +31,7 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
-@@ -1127,12 +1128,13 @@ stm32mp157a-stinger96.dtb \
+@@ -1127,12 +1127,13 @@ stm32mp157a-stinger96.dtb \
  	stm32mp157c-dhcom-pdk2.dtb \
  	stm32mp157c-dhcom-picoitx.dtb \
  	stm32mp157c-dk2.dtb \
