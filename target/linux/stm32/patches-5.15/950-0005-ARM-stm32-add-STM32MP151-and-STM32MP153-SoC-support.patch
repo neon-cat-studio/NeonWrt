@@ -1,7 +1,5 @@
-diff --git a/arch/arm/mach-stm32/mach-stm32.c b/arch/arm/mach-stm32/mach-stm32.c
-index abcdef1..1234567 100644
---- a/arch/arm/mach-stm32/mach-stm32.c
-+++ b/arch/arm/mach-stm32/mach-stm32.c
+--- a/arch/arm/mach-stm32/board-dt.c
++++ b/arch/arm/mach-stm32/board-dt.c
 @@ -1,15 +1,20 @@
  // SPDX-License-Identifier: GPL-2.0
  /*
