@@ -1,6 +1,6 @@
 --- a/arch/arm/mach-stm32/board-dt.c
 +++ b/arch/arm/mach-stm32/board-dt.c
-@@ -13,7 +13,12 @@
+@@ -14,7 +14,12 @@
  static const char *const stm32_compat[] __initconst = {
  	"st,stm32f429",
  	"st,stm32f469",
