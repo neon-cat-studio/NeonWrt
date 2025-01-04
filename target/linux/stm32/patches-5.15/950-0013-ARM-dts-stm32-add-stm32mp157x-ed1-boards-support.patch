@@ -29,7 +29,7 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
 --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
 +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -67,6 +67,10 @@ properties:
+@@ -67,7 +67,11 @@ properties:
            - const: st,stm32mp157
        - items:
            - const: st,stm32mp157c-ev1
@@ -41,6 +41,7 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 +              - st,stm32mp157f-ed1
            - const: st,stm32mp157
  
+       - description: Engicam i.Core STM32MP1 SoM based Boards
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
 @@ -1119,6 +1119,7 @@ dtb-$(CONFIG_ARCH_STM32) += \

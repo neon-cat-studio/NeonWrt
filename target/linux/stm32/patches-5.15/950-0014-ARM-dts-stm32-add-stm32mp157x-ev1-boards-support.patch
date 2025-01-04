@@ -28,28 +28,23 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
 --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
 +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -98,8 +98,16 @@ properties:
-               - st,stm32mp157f-ed1
+@@ -67,8 +67,12 @@ properties:
            - const: st,stm32mp157
        - items:
 -          - const: st,stm32mp157c-ev1
--          - const: st,stm32mp157c-ed1
 +          - enum:
 +              - st,stm32mp157a-ev1
 +              - st,stm32mp157c-ev1
 +              - st,stm32mp157d-ev1
 +              - st,stm32mp157f-ev1
-+          - enum:
-+              - st,stm32mp157a-ed1
-+              - st,stm32mp157c-ed1
-+              - st,stm32mp157d-ed1
-+              - st,stm32mp157f-ed1
-           - const: st,stm32mp157
- 
-       - description: DH STM32MP1 SoM based Boards
+           - enum:
+               - st,stm32mp157a-ed1
+               - st,stm32mp157c-ed1
+               - st,stm32mp157d-ed1
+               - st,stm32mp157f-ed1
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
-@@ -1224,6 +1224,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
+@@ -1120,6 +1120,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
  	stm32mp157a-dhcor-avenger96.dtb \
  	stm32mp157a-dk1.dtb \
  	stm32mp157a-ed1.dtb \
@@ -57,7 +52,7 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
  	stm32mp157a-iot-box.dtb \
  	stm32mp157a-microgea-stm32mp1-microdev2.0.dtb \
  	stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dtb \
-@@ -1241,8 +1242,10 @@ dtb-$(CONFIG_ARCH_STM32) += \
+@@ -1137,8 +1137,10 @@ dtb-$(CONFIG_ARCH_STM32) += \
  	stm32mp157c-odyssey.dtb \
  	stm32mp157d-dk1.dtb \
  	stm32mp157d-ed1.dtb \
