@@ -21,7 +21,7 @@ Reviewed-by: Valentin CARON <valentin.caron@foss.st.com>
 
 --- a/drivers/mfd/stmfx.c
 +++ b/drivers/mfd/stmfx.c
-@@ -448,6 +448,10 @@ static int stmfx_probe(struct i2c_client
+@@ -443,6 +443,10 @@ static int stmfx_probe(struct i2c_client
  	if (ret)
  		goto err_chip_exit;
  
