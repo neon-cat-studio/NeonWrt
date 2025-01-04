@@ -52,7 +52,7 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
  	stm32mp157a-iot-box.dtb \
  	stm32mp157a-microgea-stm32mp1-microdev2.0.dtb \
  	stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dtb \
-@@ -1137,8 +1137,10 @@ dtb-$(CONFIG_ARCH_STM32) += \
+@@ -1136,8 +1136,10 @@ dtb-$(CONFIG_ARCH_STM32) += \
  	stm32mp157c-odyssey.dtb \
  	stm32mp157d-dk1.dtb \
  	stm32mp157d-ed1.dtb \
