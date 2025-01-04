@@ -29,7 +29,7 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
 --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
 +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -61,6 +61,10 @@ properties:
+@@ -67,6 +67,10 @@ properties:
            - const: st,stm32mp157
        - items:
            - const: st,stm32mp157c-ev1
@@ -51,7 +51,7 @@ Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
  	stm32mp157a-iot-box.dtb \
  	stm32mp157a-microgea-stm32mp1-microdev2.0.dtb \
  	stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dtb \
-@@ -1135,7 +1135,9 @@ dtb-$(CONFIG_ARCH_STM32) += \
+@@ -1134,7 +1134,9 @@ dtb-$(CONFIG_ARCH_STM32) += \
  	stm32mp157c-lxa-mc1.dtb \
  	stm32mp157c-odyssey.dtb \
  	stm32mp157d-dk1.dtb \
