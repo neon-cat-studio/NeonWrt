@@ -26,7 +26,7 @@ define Package/libpwquality
   CATEGORY:=Libraries
   TITLE:=Password quality checking library
   URL:=https://github.com/libpwquality/libpwquality
-  DEPENDS:=+cracklib $(if $(CONFIG_LIBPWQUALITY_PAM),+linux-pam) $(if $(CONFIG_PACKAGE_PYTHON3),+python3)
+  DEPENDS:=+cracklib ,+python3 $(if $(CONFIG_LIBPWQUALITY_PAM),+linux-pam)
 endef
 
 define Package/libpwquality/description
