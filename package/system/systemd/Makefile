@@ -99,8 +99,8 @@ define Package/systemd
   SECTION:=base
   CATEGORY:=Base system
   TITLE:=Systemd init system
-  DEPENDS:=+libc +libcap +libselinux +libkmod +libgcrypt +libxcrypt +libseccomp +libpam +libarchive +libacl +libpwquality +libqrencode\
-	+libxkbcommon +libapparmor +libfido2 +libbpf +libmicrohttpd +libcurl +libidn +libidn2 +liblzma +libzstd +liblz4 +libxkbcommon\
+  DEPENDS:=+libc +libcap +libselinux +libkmod +libgcrypt +libxcrypt +libseccomp +libpam +libarchive +libacl +liblz4 +libqrencode\
+	+libxkbcommon +libapparmor +libfido2 +libbpf +libmicrohttpd +libcurl +libidn +libidn2 +liblzma +libzstd +libxkbcommon\
   	+valgrind +audit +p11-kit +bzip2 +block-mount +fstools +mount-utils +fdisk +lsblk +blkid +logger +agetty +cryptsetup +gnutls-utils +openssl-util
 endef
 #+kexec +dbus +p11-kit
