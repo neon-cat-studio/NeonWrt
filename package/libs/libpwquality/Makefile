@@ -38,7 +38,7 @@ define Package/libpwquality-tools
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=Tools for libpwquality
-  DEPENDS:=+libpwquality libcrack
+  DEPENDS:=+libpwquality cracklib
 endef
 
 define Package/libpwquality-tools/description
