@@ -14,6 +14,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://github.com/libpwquality/libpwquality/releases/download/$(PKG_NAME)-$(PKG_VERSION)
 PKG_HASH:=skip
 
+PKG_BUILD_DEPENDS:=python3/host
 PKG_LICENSE:=BSD-3-Clause OR GPL-2.0+
 PKG_LICENSE_FILES:=COPYING
 PKG_INSTALL:=1
@@ -26,7 +27,7 @@ define Package/libpwquality
   CATEGORY:=Libraries
   TITLE:=Password quality checking library
   URL:=https://github.com/libpwquality/libpwquality
-  DEPENDS:=+cracklib +python3 $(if $(CONFIG_LIBPWQUALITY_PAM),+linux-pam)
+  DEPENDS:=+cracklib $(if $(CONFIG_LIBPWQUALITY_PAM),+linux-pam)
 endef
 
 define Package/libpwquality/description
