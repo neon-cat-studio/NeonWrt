@@ -68,7 +68,9 @@ CONFIGURE_ARGS += \
 	--enable-polkit \
 	--enable-elfutils \
 	--enable-gnutls \
-	--enable-libcurl
+	--enable-libcurl \
+	--enable-switch-root \
+	--enable-sulogin \
 #	$(call SYSTEMD_DISABLE_PKG,bootchart,bootchart) \
 	$(call SYSTEMD_DISABLE_PKG,coredump,coredump) \
 	$(call SYSTEMD_DISABLE_PKG,hostnamed,hostnamed) \
