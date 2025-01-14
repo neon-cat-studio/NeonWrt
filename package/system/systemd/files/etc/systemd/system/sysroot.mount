@@ -1,12 +1,12 @@
 [Unit]
-Requires=overlay.mount
-Before=initrd-root-fs.target
-After=overlay.mount
-ConditionPathExists=/etc/initrd-release
-DefaultDependencies=false
+Description=Mount Sysroot
+DefaultDependencies=no
+Before=initrd-switch-root.target
 
 [Mount]
-What=overlay
+What=/dev/mmcblk0p2
 Where=/sysroot
-Type=overlay
-Options=lowerdir=/,upperdir=/overlay/upper,workdir=/overlay/work
+Type=ext4
+
+[Install]
+WantedBy=initrd-root-fs.target
