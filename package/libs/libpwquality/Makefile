@@ -26,7 +26,7 @@ define Package/libpwquality
   CATEGORY:=Libraries
   TITLE:=Password quality checking library
   URL:=https://github.com/libpwquality/libpwquality
-  DEPENDS:=+cracklib $(if $(CONFIG_LIBPWQUALITY_PAM),+linux-pam)
+  DEPENDS:=+cracklib $(if $(CONFIG_LIBPWQUALITY_PAM),+linux-pam) ifeq $(if $(CONFIG_PACKAGE_PYTHON3),+python3)
 endef
 
 define Package/libpwquality/description
@@ -52,15 +52,9 @@ LIBPWQUALITY_CONF_OPTS += --disable-pam
 endif
 
 ifeq ($(CONFIG_PACKAGE_PYTHON3),y)
-PYTHON_VERSION := $(shell python -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-LIBPWQUALITY_CONF_OPTS += --enable-python-bindings \
-    --with-python=$(STAGING_DIR)/usr/include/$(PYTHON_VERSION)
+LIBPWQUALITY_CONF_OPTS += --enable-python-bindings
 LIBPWQUALITY_DEPENDENCIES += python3 host-python-setuptools
 LIBPWQUALITY_MAKE_ENV += $(PKG_PYTHON_SETUPTOOLS_ENV)
-LIBPWQUALITY_MAKE_ENV += \
-    PYTHON_CPPFLAGS="-I$(STAGING_DIR)/usr/include/(PYTHON_VERSION)" \
-    PYTHON_LDFLAGS="-L$(STAGING_DIR)/usr/lib" \
-    PKG_CONFIG_PATH=$(STAGING_DIR)/usr/lib/pkgconfig
 else
 LIBPWQUALITY_CONF_OPTS += --disable-python-bindings
 endif
