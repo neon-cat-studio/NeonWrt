@@ -30,7 +30,7 @@ define Package/cracklib
   CATEGORY:=Libraries
   TITLE:=Password validation library
   URL:=https://github.com/cracklib/cracklib
-  DEPENDS:=$(TARGET_NLS_DEPENDS)
+  DEPENDS:=$(TARGET_NLS_DEPENDS) zlib
 endef
 
 define Package/cracklib/description
