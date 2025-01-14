@@ -52,12 +52,13 @@ LIBPWQUALITY_CONF_OPTS += --disable-pam
 endif
 
 ifeq ($(CONFIG_PACKAGE_PYTHON3),y)
+PYTHON_VERSION := $(shell $(STAGING_DIR_HOST)/bin/python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
 LIBPWQUALITY_CONF_OPTS += --enable-python-bindings \
-    --with-python=$(STAGING_DIR)/usr/include/python3.11
-LIBPWQUALITY_DEPENDENCIES += python3 host-python-setuptools
+    --with-python=$(STAGING_DIR_HOST)/include/python$(PYTHON_VERSION)
+LIBPWQUALITY_DEPENDENCIES += host-python3 host-python3-setuptools
 LIBPWQUALITY_MAKE_ENV += \
-    PYTHON_CPPFLAGS="-I$(STAGING_DIR)/usr/include/python3.11" \
-    PYTHON_LDFLAGS="-L$(STAGING_DIR)/usr/lib"
+    PYTHON_CPPFLAGS="-I$(STAGING_DIR_HOST)/include/python$(PYTHON_VERSION)" \
+    PYTHON_LDFLAGS="-L$(STAGING_DIR_HOST)/lib"
 else
 LIBPWQUALITY_CONF_OPTS += --disable-python-bindings
 endif
